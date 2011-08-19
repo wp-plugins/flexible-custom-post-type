@@ -1,0 +1,336 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Custom Post Type UI\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-06-30 12:19-0500\n"
+"PO-Revision-Date: 2010-06-30 12:19-0500\n"
+"Last-Translator: Brad Williams <brad@webdevstudios.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-Language: \n"
+"X-Poedit-Country: \n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
+"X-Poedit-Basepath: \n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Textdomain-Support: yes"
+
+#: edit-post.php:13
+#: edit-post.php:22
+#@ fcpt
+msgid "Name"
+msgstr "Nombre"
+
+#: edit-post.php:76
+#: edit-taxonomy.php:140
+#: languages/post.php:16
+#@ fcpt
+msgid "Label"
+msgstr "Etiqueta"
+
+#: edit-post.php:99
+#: languages/post.php:86
+#@ fcpt
+msgid "Public"
+msgstr "Pública"
+
+#: edit-post.php:103
+#: languages/post.php:90
+#@ fcpt
+msgid "Show UI"
+msgstr "Mostrar la interfaz de usuario"
+
+#: edit-post.php:111
+#: languages/post.php:98
+#@ fcpt
+msgid "Hierarchical"
+msgstr "Jerárquica"
+
+#: edit-post.php:118
+#: languages/post.php:105
+#@ fcpt
+msgid "Rewrite"
+msgstr "Rewrite"
+
+#: edit-post.php:146
+#: languages/post.php:124
+#@ fcpt
+msgid "Supports"
+msgstr "Soporta"
+
+#: edit-post.php:80
+#: edit-taxonomy.php:145
+#: languages/post.php:20
+#@ fcpt
+msgid "Singular Label"
+msgstr ""
+
+#: edit-post.php:107
+#: languages/post.php:94
+#@ fcpt
+msgid "Capability Type"
+msgstr ""
+
+#: edit-post.php:128
+#: languages/post.php:116
+#@ fcpt
+msgid "Query Var"
+msgstr ""
+
+#: edit-post.php:58
+#@ fcpt
+msgid "Edit Custom Post Type"
+msgstr ""
+
+#: edit-post.php:71
+#: languages/post.php:12
+#@ fcpt
+msgid "Post Type Name"
+msgstr ""
+
+#: edit-post.php:84
+#: languages/post.php:24
+#: manage-elements.php:14
+#: manage-elements.php:21
+#: manage-elements.php:54
+#: manage-elements.php:60
+#@ fcpt
+msgid "Description"
+msgstr "Descripción"
+
+#: languages/post.php:30
+#@ fcpt
+msgid "View Advanced Label Options"
+msgstr ""
+
+#: edit-post.php:96
+#: languages/post.php:82
+#@ fcpt
+msgid "View Advanced Options"
+msgstr ""
+
+#: languages/post.php:32
+#@ fcpt
+msgid "Below are the advanced label options for custom post types.  If you are unfamiliar with these labels the plugin will automatically create labels based off of your custom post type name"
+msgstr ""
+
+#: languages/post.php:35
+#@ fcpt
+msgid "Add New"
+msgstr "Agregar nuevo"
+
+#: languages/post.php:39
+#@ fcpt
+msgid "Add New Item"
+msgstr ""
+
+#: languages/post.php:43
+#: manage-elements.php:29
+#: manage-elements.php:67
+#@ fcpt
+msgid "Edit"
+msgstr "Editar"
+
+#: languages/post.php:47
+#@ fcpt
+msgid "Edit Item"
+msgstr "Editar elemento"
+
+#: languages/post.php:51
+#@ fcpt
+msgid "New Item"
+msgstr ""
+
+#: languages/post.php:55
+#@ fcpt
+msgid "View"
+msgstr ""
+
+#: languages/post.php:59
+#@ fcpt
+msgid "View Item"
+msgstr ""
+
+#: languages/post.php:63
+#@ fcpt
+msgid "Search Items"
+msgstr ""
+
+#: languages/post.php:67
+#@ fcpt
+msgid "Not Found"
+msgstr ""
+
+#: languages/post.php:71
+#@ fcpt
+msgid "Not Found in Trash"
+msgstr ""
+
+#: languages/post.php:75
+#@ fcpt
+msgid "Parent"
+msgstr "Padre"
+
+#: edit-post.php:124
+#: languages/post.php:112
+#@ fcpt
+msgid "Custom Rewrite Slug"
+msgstr ""
+
+#: edit-post.php:132
+#: languages/post.php:120
+#@ fcpt
+msgid "Menu Position"
+msgstr "Posición en el menu"
+
+#: edit-post.php:168
+#: languages/post.php:217
+#@ fcpt
+msgid "Built-in Taxonomies"
+msgstr ""
+
+#: edit-taxonomy.php:125
+#@ fcpt
+msgid "Edit Custom Taxonomy"
+msgstr ""
+
+#: custom-post-type.php:60
+#@ default
+msgid "label"
+msgstr ""
+
+#: custom-post-type.php:92
+#: edit-post.php:14
+#: edit-post.php:23
+#@ default
+#@ fcpt
+msgid "Title"
+msgstr "Titulo"
+
+#: custom-post-type.php:133
+#@ default
+msgid "title"
+msgstr ""
+
+#: custom-post-type.php:242
+#@ default
+msgid "The post type was saved successfully"
+msgstr ""
+
+#: custom-post-type.php:291
+#@ fcpt
+msgid "Select one"
+msgstr "Seleccionar uno"
+
+#: edit-post.php:88
+#@ fcpt
+msgid "Icon"
+msgstr "Icono"
+
+#: edit-post.php:92
+#@ fcpt
+msgid "Status"
+msgstr "Estado"
+
+#: edit-post.php:186
+#: edit-taxonomy.php:116
+#: edit-taxonomy.php:165
+#: languages/post.php:242
+#@ fcpt
+msgid "Save changes"
+msgstr "Guardar cambios"
+
+#: edit-taxonomy.php:9
+#@ fcpt
+msgid "Custom Post Type Options"
+msgstr ""
+
+#: manage-elements.php:4
+#@ fcpt
+msgid "Custom Post Type"
+msgstr ""
+
+#: manage-elements.php:13
+#: manage-elements.php:20
+#@ fcpt
+msgid "Post type"
+msgstr ""
+
+#: manage-elements.php:36
+#@ fcpt
+msgid "There are no custom post types"
+msgstr "No hay tipos de entrada personalizados"
+
+#: manage-elements.php:44
+#@ fcpt
+msgid "Custom Taxonomies"
+msgstr "Taxonomías personalizadas"
+
+#: manage-elements.php:53
+#: manage-elements.php:59
+#@ fcpt
+msgid "Taxonomy"
+msgstr "Taxonomía"
+
+#: manage-elements.php:74
+#@ fcpt
+msgid "There are no custom taxonomies"
+msgstr "No hay taxonomías personalizadas"
+
+#: manage-elements.php:7
+#@ fcpt
+msgid "Add New Post Type"
+msgstr "Agregar un nuevo tipo de entrada"
+
+#: manage-elements.php:47
+#@ fcpt
+msgid "Add New Taxonomy"
+msgstr "Agregar una nueva taxonomía"
+
+#: edit-post.php:15
+#: edit-post.php:24
+#@ fcpt
+msgid "Type"
+msgstr "Tipo"
+
+#: edit-post.php:47
+#@ fcpt
+msgid "Text"
+msgstr ""
+
+#: edit-post.php:47
+#@ fcpt
+msgid "Textarea"
+msgstr ""
+
+#: edit-post.php:38
+#: manage-elements.php:29
+#: manage-elements.php:67
+#@ fcpt
+msgid "Delete"
+msgstr "Eliminar"
+
+#: manage-elements.php:3
+#@ fcpt
+msgid "Custom Elements"
+msgstr "Elementos personalizados"
+
+#: edit-taxonomy.php:135
+#@ fcpt
+msgid "Taxonomy Name"
+msgstr "Nombre de la taxonomía"
+
+#: custom-post-type.php:194
+#@ fcpt
+msgid "Add post types"
+msgstr "Agregar tipos de entrada"
+
+#: custom-post-type.php:195
+#@ fcpt
+msgid "Add taxonomies"
+msgstr "Agregar taxonomías"
+
