@@ -86,7 +86,7 @@ class customPostType {
         foreach ($this->_fcpt_post_types as $pt) {
             if ($pt['name'] == $post_type) {
                 $output = array();
-                foreach ($this->_fcpt_taxonomies as $taxonomy) {
+                foreach ((array)$this->_fcpt_taxonomies as $taxonomy) {
                     if (in_array($taxonomy['name'], $pt['taxonomies'])) {
                         $output[] = $taxonomy;
                     }
