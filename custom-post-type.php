@@ -164,11 +164,11 @@ class customPostType {
 
     public function add_meta_box($data) {
         foreach ($this->_fcpt_post_types as $fcpt_post_type) {
-            add_meta_box($fcpt_post_type["name"] . '-custom-fields', __('Other fields','fcpt'), array($this, 'render_meta_box'), $fcpt_post_type["name"], 'normal', 'high');
+            add_meta_box($fcpt_post_type["name"] . '-custom-fields', __('Additional fields','fcpt'), array($this, 'render_meta_box'), $fcpt_post_type["name"], 'normal', 'high');
         }
     }
 
-    public function render_meta_box($post=null) {
+    public function render_meta_box($post = null) {
         foreach ($this->_fcpt_post_types as $fcpt_post_type) {
             if ($fcpt_post_type['name'] == $post->post_type) {
                 if (is_array($fcpt_post_type['custom_fields'])) {
@@ -186,6 +186,7 @@ class customPostType {
                                 case 'date':
                                     $output .= '<input style="width:300px" rel="date" type="text" id="' . $input['name'] . '" name="' . $input['name'] . '" value="' . get_post_meta(&$post->ID, $input['name'], true) . '"/>';
                             }
+                            $output .= '<p>' . apply_filters('the_title',$input['description']) . '</p>';
                             $output .= '</td></tr>';
                         }
                     }
