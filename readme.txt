@@ -14,8 +14,8 @@ This plugin helps you to create, use and manage custom post types and custom tax
 Copy the flexible-custom-post-type directory int wp-content/plugins and activate it. An item called "Post types" will be added to the left menu.
 
 == Changelog ==
-0.1 Initial release
-0.2 Fixed some bugs
+- 0.1 Initial release
+- 0.2 Fixed some bugs
 
 == Screenshots ==
 
