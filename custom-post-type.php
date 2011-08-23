@@ -164,7 +164,7 @@ class customPostType {
 
     public function add_meta_box($data) {
         foreach ($this->_fcpt_post_types as $fcpt_post_type) {
-            add_meta_box($fcpt_post_type["name"] . '-custom-fields', 'Other inputs', array($this, 'render_meta_box'), $fcpt_post_type["name"], 'normal', 'high');
+            add_meta_box($fcpt_post_type["name"] . '-custom-fields', __('Other fields','fcpt'), array($this, 'render_meta_box'), $fcpt_post_type["name"], 'normal', 'high');
         }
     }
 
@@ -178,10 +178,10 @@ class customPostType {
                             $output .= '<tr><td style="width:100px"><label for="' . $input['name'] . '">' . __($input['title']) . '</label></td><td>';
                             switch ($input['type']) {
                                 case 'text':
-                                    $output .= '<input style="width:300px" rel="text" type="text" id="' . $input['name'] . '" name="' . $input['name'] . '" value="' . get_post_meta($post->ID, $input['name'], true) . '"/>';
+                                    $output .= '<input class="multilanguage-input" style="width:300px" rel="text" type="text" id="' . $input['name'] . '" name="' . $input['name'] . '" value="' . get_post_meta($post->ID, $input['name'], true) . '"/>';
                                     break;
                                 case 'textarea':
-                                    $output .= '<textarea style="width:300px" rel="textarea" rows="3" id="' . $input['name'] . '" name="' . $input['name'] . '">' . get_post_meta($post->ID, $input['name'], true) . '</textarea>';
+                                    $output .= '<textarea class="multilanguage-input" style="width:300px" rel="textarea" rows="3" id="' . $input['name'] . '" name="' . $input['name'] . '">' . get_post_meta($post->ID, $input['name'], true) . '</textarea>';
                                     break;
                                 case 'date':
                                     $output .= '<input style="width:300px" rel="date" type="text" id="' . $input['name'] . '" name="' . $input['name'] . '" value="' . get_post_meta(&$post->ID, $input['name'], true) . '"/>';
