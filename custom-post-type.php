@@ -1,11 +1,24 @@
 <?php
 /*
   Plugin Name: Flexible Custom Post Type
-  Plugin URI: http://786.pe/
+  Plugin URI: http://786.pe
   Description: Admin panel for creating custom post types and custom taxonomies in WordPress
   Author: 786.pe
   Version: 0.1.3
-  Author URI:
+  Author URI:http://786.pe
+  Tags: 786, custom, plugin, post type, taxonomy
+ *
+ * License: GNU General Public License, v2 (or newer)
+ * License URI:  http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
 class customPostType {
@@ -86,7 +99,7 @@ class customPostType {
         foreach ($this->_fcpt_post_types as $pt) {
             if ($pt['name'] == $post_type) {
                 $output = array();
-                foreach ((array)$this->_fcpt_taxonomies as $taxonomy) {
+                foreach ($this->_fcpt_taxonomies as $taxonomy) {
                     if (in_array($taxonomy['name'], $pt['taxonomies'])) {
                         $output[] = $taxonomy;
                     }
@@ -107,7 +120,7 @@ class customPostType {
                     if ($terms) {
                         $output = array();
                         foreach ($terms as $term) {
-                            $output[] = $term->name;
+                            $output[] = '<a href="?' . $taxonomy['name'] . '=' . $term->slug . '&post_type=' . $post->post_type . '">' . $term->name . '</a>';
                         }
                     } else {
                         $output = array(__('None'));
@@ -151,9 +164,7 @@ class customPostType {
 
     public function add_meta_box($data) {
         foreach ($this->_fcpt_post_types as $fcpt_post_type) {
-            if(is_array($fcpt_post_type['custom_fields'])){
-                add_meta_box($fcpt_post_type["name"] . '-custom-fields', __('Custom inputs','fcpt') , array($this, 'render_meta_box'), $fcpt_post_type["name"], 'normal', 'high');
-            }
+            add_meta_box($fcpt_post_type["name"] . '-custom-fields', 'Other inputs', array($this, 'render_meta_box'), $fcpt_post_type["name"], 'normal', 'high');
         }
     }
 
@@ -164,19 +175,16 @@ class customPostType {
                     $output = '<table>';
                     foreach ($fcpt_post_type['custom_fields'] as $input) {
                         if ($input['name'] != '') {
-                            $output .= '<tr><td style="width:100px; font-weight:bold;"><label for="' . $input['name'] . '">' . __($input['title']) . '</label></td><td>';
+                            $output .= '<tr><td style="width:100px"><label for="' . $input['name'] . '">' . __($input['title']) . '</label></td><td>';
                             switch ($input['type']) {
                                 case 'text':
-                                    $output .= '<input class="multilanguage-input" style="width:300px" rel="text" type="text" id="' . $input['name'] . '" name="' . $input['name'] . '" value="' . get_post_meta($post->ID, $input['name'], true) . '"/>';
+                                    $output .= '<input style="width:300px" rel="text" type="text" id="' . $input['name'] . '" name="' . $input['name'] . '" value="' . get_post_meta($post->ID, $input['name'], true) . '"/>';
                                     break;
                                 case 'textarea':
-                                    $output .= '<textarea class="multilanguage-input" style="width:300px" rel="textarea" rows="3" id="' . $input['name'] . '" name="' . $input['name'] . '">' . get_post_meta($post->ID, $input['name'], true) . '</textarea>';
+                                    $output .= '<textarea style="width:300px" rel="textarea" rows="3" id="' . $input['name'] . '" name="' . $input['name'] . '">' . get_post_meta($post->ID, $input['name'], true) . '</textarea>';
                                     break;
                                 case 'date':
-                                    $output .= '<input class="multilanguage-input" style="width:300px" rel="date" type="text" id="' . $input['name'] . '" name="' . $input['name'] . '" value="' . get_post_meta(&$post->ID, $input['name'], true) . '"/>';
-                            }
-                            if(isset($input['description'])){
-                                $output .= '<p>' . apply_filters('the_title',$input['description']) . '</p>';
+                                    $output .= '<input style="width:300px" rel="date" type="text" id="' . $input['name'] . '" name="' . $input['name'] . '" value="' . get_post_meta(&$post->ID, $input['name'], true) . '"/>';
                             }
                             $output .= '</td></tr>';
                         }
@@ -371,7 +379,7 @@ class customPostType {
             $current_values = $default_values;
         }
         foreach ($arr_values as $value => $title) {
-            $output .= '<input type="checkbox" name="' . $name . '[]" id="' . $name . '-' . $this->to_id($value) . '" value="' . $value . '" ' . (in_array($value, $current_values) ? 'checked="checked"' : '') . '> <label for="' . $name . '-' . $this->to_id($value) . '">' . __($title, 'fcpt') . '</label><br/>';
+            $output .= '<input type="checkbox" name="' . $name . '[]" id="' . $name . '-' . sanitize_title($value) . '" value="' . $value . '" ' . (in_array($value, $current_values) ? 'checked="checked"' : '') . '> <label for="' . $name . '-' . sanitize_title($value) . '">' . __($title, 'fcpt') . '</label><br/>';
         }
 
         return $output;
@@ -400,7 +408,7 @@ class customPostType {
         $custom_post_types = is_array($custom_post_types) ? $custom_post_types : array();
         if ($post_type['id'] == '') {
             $post_type['id'] = count($custom_post_types) + 1;
-            $post_type['name'] = $this->to_id($post_type['name']);
+            $post_type['name'] = sanitize_title($post_type['name']);
         } else {
             $post_type['name'] = $custom_post_types[$post_type['id']]['name'];
         }
@@ -428,7 +436,7 @@ class customPostType {
         $custom_taxonomies = is_array($custom_taxonomies) ? $custom_taxonomies : array();
         if ($taxonomy['id'] == '') {
             $taxonomy['id'] = count($custom_taxonomies) + 1;
-            $taxonomy['name'] = $this->to_id($taxonomy['name']);
+            $taxonomy['name'] = sanitize_title($taxonomy['name']);
         } else {
             $taxonomy['name'] = $custom_taxonomies[$taxonomy['id']]['name'];
         }
@@ -445,7 +453,7 @@ class customPostType {
                 if ($custom_fields[$key]['name'] == '') {
                     unset($custom_fields[$key]);
                 } else {
-                    $custom_fields[$key]['name'] = $this->to_id($custom_fields[$key]['name']);
+                    $custom_fields[$key]['name'] = sanitize_title($custom_fields[$key]['name']);
                 }
             }
         }
@@ -470,15 +478,6 @@ class customPostType {
         }
     }
 
-    public function to_id($string) {
-        $string = preg_replace('~[^\\pL\d]+~u', '-', $string);
-        $string = trim($string, '-');
-        $string = iconv('utf-8', 'us-ascii//TRANSLIT', $string);
-        $string = strtolower($string);
-        $string = preg_replace('~[^-\w]+~', '', $string);
-        return (empty($string)) ? '' : str_replace('-', '_', $string);
-    }
-
     public function to_value($value, $type='text') {
         switch ($type) {
             case 'text';
@@ -496,7 +495,4 @@ function get_custom_post_thumbnail($post_id) {
     return wp_get_attachment_url($thumbnail_id, 'thumbnail');
 }
 
-function get_custom_posts() {
-    
-}
 ?>
