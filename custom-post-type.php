@@ -164,14 +164,15 @@ class customPostType {
 
     public function add_meta_box($data) {
         foreach ($this->_fcpt_post_types as $fcpt_post_type) {
-            add_meta_box($fcpt_post_type["name"] . '-custom-fields', __('Additional fields','fcpt'), array($this, 'render_meta_box'), $fcpt_post_type["name"], 'normal', 'high');
+            if (is_array($fcpt_post_type['custom_fields']) && !empty($fcpt_post_type['custom_fields'])) {
+                add_meta_box($fcpt_post_type["name"] . '-custom-fields', __('Additional fields','fcpt'), array($this, 'render_meta_box'), $fcpt_post_type["name"], 'normal', 'high');
+            }
         }
     }
 
     public function render_meta_box($post = null) {
         foreach ($this->_fcpt_post_types as $fcpt_post_type) {
             if ($fcpt_post_type['name'] == $post->post_type) {
-                if (is_array($fcpt_post_type['custom_fields'])) {
                     $output = '<table>';
                     foreach ($fcpt_post_type['custom_fields'] as $input) {
                         if ($input['name'] != '') {
@@ -192,7 +193,6 @@ class customPostType {
                     }
                     $output .= '</table>';
                     echo $output;
-                }
             }
         }
 ?>        
