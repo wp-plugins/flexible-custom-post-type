@@ -1,0 +1,6 @@
+.column-multilanguage span{
+    display:block;
+    background:url('icons/locale.png') no-repeat;
+    width:16px;
+    height:16px;
+}

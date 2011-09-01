@@ -19,7 +19,7 @@
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
+ * 
  * Thanks to http://randyjensenonline.com/thoughts/wordpress-custom-post-type-fugue-icons/ for the icon pack.
  */
 
@@ -183,13 +183,14 @@ class customPostType {
                 if (is_array($taxonomy['custom_fields']) && !empty($taxonomy['custom_fields'])) {
                     foreach ($taxonomy['custom_fields'] as $custom_field) {
                         $value = get_metadata('taxonomy', $tag->term_id, $custom_field['name'], true);
+                        $multilanguage = ($custom_field['multilanguage'] == true) ? 'class="multilanguage-input"' : '';
 ?>
                         <tr class="form-field">
                             <th scope="row" valign="top">
                                 <label for="<?php echo $custom_field['name']; ?>"><?php _e($custom_field['title']); ?></label>
                             </th>
                             <td>
-                                <input class="multilanguage-input" type="text" name="term_meta[<?php echo $custom_field['name']; ?>]" size="40" value="<?php echo $value; ?>"><br/>
+                                <input <?php echo $multilanguage; ?> type="text" name="term_meta[<?php echo $custom_field['name']; ?>]" size="40" value="<?php echo $value; ?>"><br/>
                                 <?php if ($custom_field['description'] != ''): ?><span class="description"><?php _e($custom_field['description']); ?></span><?php endif; ?>
                         </td>
                     </tr>
@@ -223,12 +224,13 @@ class customPostType {
                     foreach ($fcpt_post_type['custom_fields'] as $input) {
                         if ($input['name'] != '') {
                             $output .= '<tr><td style="width:100px"><label for="' . $input['name'] . '">' . __($input['title']) . '</label></td><td>';
+                            $multilanguage = ($input['multilanguage'] == true) ? 'class="multilanguage-input"' : '';
                             switch ($input['type']) {
                                 case 'text':
-                                    $output .= '<input class="multilanguage-input" style="width:300px" rel="text" type="text" id="' . $input['name'] . '" name="' . $input['name'] . '" value="' . get_post_meta($post->ID, $input['name'], true) . '"/>';
+                                    $output .= '<input ' . $multilanguage . ' style="width:300px" rel="text" type="text" id="' . $input['name'] . '" name="' . $input['name'] . '" value="' . get_post_meta($post->ID, $input['name'], true) . '"/>';
                                     break;
                                 case 'textarea':
-                                    $output .= '<textarea class="multilanguage-input" style="width:300px" rel="textarea" rows="3" id="' . $input['name'] . '" name="' . $input['name'] . '">' . get_post_meta($post->ID, $input['name'], true) . '</textarea>';
+                                    $output .= '<textarea ' . $multilanguage . ' style="width:300px" rel="textarea" rows="3" id="' . $input['name'] . '" name="' . $input['name'] . '">' . get_post_meta($post->ID, $input['name'], true) . '</textarea>';
                                     break;
                                 case 'date':
                                     $output .= '<input style="width:300px" rel="date" type="text" id="' . $input['name'] . '" name="' . $input['name'] . '" value="' . get_post_meta(&$post->ID, $input['name'], true) . '"/>';
@@ -288,6 +290,7 @@ class customPostType {
 ?>
             <script src="<?php echo WP_PLUGIN_URL ?>/flexible-custom-post-type/js/dateSelect.js" type="text/javascript"></script>
             <script src="<?php echo WP_PLUGIN_URL ?>/flexible-custom-post-type/js/flexible-custom-post-type.js" type="text/javascript"></script>
+            <link rel="stylesheet" href="<?php echo WP_PLUGIN_URL ?>/flexible-custom-post-type/style.css" type="text/css"/>
 <?php if (is_admin() && strpos($_SERVER['REQUEST_URI'], 'fcpt') != false) {
 ?>
 
@@ -484,7 +487,7 @@ class customPostType {
                 $post_type['name'] = sanitize_title($post_type['name']);
             } else {
                 $post_type['name'] = $custom_post_types[$post_type['id']]['name'];
-            }
+            }            
             $post_type['custom_fields'] = $this->validate_custom_fields($post_type['custom_fields']);
             $post_type = $this->unset_values($post_type, array('_wpnonce', '_wp_http_referer'));
             $custom_post_types[$post_type['id']] = $post_type;
@@ -528,6 +531,7 @@ class customPostType {
                         unset($custom_fields[$key]);
                     } else {
                         $custom_fields[$key]['name'] = sanitize_title($custom_fields[$key]['name']);
+                        $custom_fields[$key]['multilanguage'] = ($custom_fields[$key]['multilanguage'] == '') ? false : true;
                     }
                 }
             }

@@ -14,6 +14,9 @@
                                     <th style="" class="manage-column column-description" scope="col"><?php _e('Title', 'fcpt'); ?></th>
                                     <th style="" class="manage-column column-description" scope="col"><?php _e('Description', 'fcpt'); ?></th>
                                     <th style="" class="manage-column column-posts num" scope="col"><?php _e('Type', 'fcpt'); ?></th>
+                                    <?php if(function_exists('qtranslate_extension')): ?>
+                                    <th style="" class="manage-column column-multilanguage check-column" scope="col"><span title="<?php _e('Is it a multilanguage field?','fcpt') ?>"></span></th>
+                                    <?php endif; ?>
                                     <th style="" class="manage-column column-posts num" scope="col"></th>
                                 </tr>
                             </thead>
@@ -24,6 +27,9 @@
                                     <th style="" class="manage-column column-description" scope="col"><?php _e('Title', 'fcpt'); ?></th>
                                     <th style="" class="manage-column column-description" scope="col"><?php _e('Description', 'fcpt'); ?></th>
                                     <th style="" class="manage-column column-posts num" scope="col"><?php _e('Type', 'fcpt'); ?></th>
+                                    <?php if(function_exists('qtranslate_extension')): ?>
+                                    <th style="" class="manage-column column-multilanguage check-column" scope="col"><span title="<?php _e('Is it a multilanguage field?','fcpt') ?>"></span></th>
+                                    <?php endif; ?>
                                     <th style="" class="manage-column column-posts num" scope="col"></th>
                                 </tr>
                             </tfoot>
@@ -38,6 +44,9 @@
                                             <td class="description column-description"><input class="multilanguage-input" type="text" name="custom_fields[<?php echo $i; ?>][title]" value="<?php echo $custom_field['title'] ?>"/></td>
                                             <td class="description column-description"><input class="multilanguage-input" type="text" name="custom_fields[<?php echo $i; ?>][description]" value="<?php echo $custom_field['description'] ?>"/></td>
                                             <td class="posts column-posts num"><?php echo $this->custom_select('custom_fields[' . $i . '][type]', array('text' => 'text', 'textarea' => 'textarea', 'date' => 'date'), $custom_field['type'], false); ?></td>
+                                            <?php if(function_exists('qtranslate_extension')): ?>
+                                            <td class="check-column"><input <?php echo ($custom_field['multilanguage'] == true) ? 'checked="checked"' : ''; ?> type="checkbox" name="custom_fields[<?php echo $i; ?>][multilanguage]" /></td>
+                                            <?php endif; ?>
                                             <td class="posts column-posts num"><a href="#" onclick="jQuery(this).parent().parent().remove(); return false;"><?php _e('Delete', 'fcpt'); ?></a></td>
                                         </tr>
                             <?php $i++; ?>
@@ -48,8 +57,10 @@
                                             <td class="name column-name"><input style="width:100px" type="text" name="custom_fields[<?php echo $i; ?>][name]"/></td>
                                             <td class="description column-description"><input class="multilanguage-input" type="text" name="custom_fields[<?php echo $i; ?>][title]"/></td>
                                             <td class="description column-description"><input class="multilanguage-input" type="text" name="custom_fields[<?php echo $i; ?>][description]"/></td>
-
                                             <td class="posts column-posts num"><?php echo $this->custom_select('custom_fields[' . $i . '][type]', array('text' => 'text', 'textarea' => 'textarea', 'date' => 'date'), $custom_field['type'], false); ?></td>
+                                            <?php if(function_exists('qtranslate_extension')): ?>
+                                            <td class="check-column"><input type="checkbox" name="custom_fields[<?php echo $i; ?>][multilanguage]"/></td>
+                                            <?php endif; ?>
                                             <td class="posts column-posts num"></td>
                                         </tr>
                                     </tbody>
