@@ -1,10 +1,10 @@
 <div class="wrap">
     <div class="icon32" id="icon-options-general"><br></div>
     <h2><?php _e('Custom Elements', 'fcpt'); ?></h2>
-    <h3><?php _e('Custom Post Type', 'fcpt'); ?></h3>
+    <h3><?php _e('Custom Post Types', 'fcpt'); ?></h3>
     <div class="tablenav top">
         <div class="alignleft actions">
-            <a class="button add-new-h2" href="?page=fcpt-edit-post"><?php _e('Add New Post Type', 'fcpt'); ?></a>
+            <a class="button add-new-h2" href="?page=fcpt-edit-post"><?php _e('Add new post type', 'fcpt'); ?></a>
         </div>
     </div>
     <table cellspacing="0" id="all-plugins-table" class="widefat">
@@ -44,7 +44,7 @@
                 <h3><?php _e('Custom Taxonomies', 'fcpt'); ?></h3>
                 <div class="tablenav top">
                     <div class="alignleft actions">
-                        <a class="button add-new-h2" href="?page=fcpt-edit-taxonomy"><?php _e('Add New Taxonomy', 'fcpt'); ?></a>
+                        <a class="button add-new-h2" href="?page=fcpt-edit-taxonomy"><?php _e('Add new taxonomy', 'fcpt'); ?></a>
                     </div>
                 </div>
                 <table cellspacing="0" id="all-plugins-table" class="widefat">

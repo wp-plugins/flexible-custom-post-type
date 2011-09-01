@@ -136,7 +136,7 @@ class customPostType {
                             $output[] = '<a href="?' . $taxonomy['name'] . '=' . $term->slug . '&post_type=' . $post->post_type . '">' . $term->name . '</a>';
                         }
                     } else {
-                        $output = array(__('None'));
+                        $output = array(__('None','fcpt'));
                     }
                     echo $taxonomy['label'] . ': ' . implode(', ', $output) . '<br />';
                 }
@@ -147,10 +147,10 @@ class customPostType {
     public function custom_columns($columns) {
         return array(
             'cb' => '<input type=\'checkbox\' />',
-            'title' => __('Title'),
-            'author' => __('Author'),
-            'taxonomy' => __('Taxonomies'),
-            'date' => __('Date')
+            'title' => __('Title', 'fcpt'),
+            'author' => __('Author', 'fcpt'),
+            'taxonomy' => __('Taxonomies', 'fcpt'),
+            'date' => __('Date', 'fcpt')
         );
     }
 
@@ -375,7 +375,7 @@ class customPostType {
             if (!empty($_POST)) {
                 /* check_admin_referer('fcpt_edit_post_type'); */
                 $id = $this->save_custom_post_type($_POST);
-                $this->message(__('The post type was saved successfully'));
+                $this->message(__('The post type was saved successfully','fcpt'));
             } else {
                 if (isset($_GET['id'])) {
                     $id = $_GET['id'];

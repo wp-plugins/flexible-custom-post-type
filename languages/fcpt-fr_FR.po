@@ -27,46 +27,46 @@ msgstr ""
 #: edit-taxonomy.php:86
 #@ fcpt
 msgid "Name"
-msgstr "Nombre"
+msgstr "Nom"
 
 #: edit-post.php:88
 #: edit-taxonomy.php:87
 #@ fcpt
 msgid "Label"
-msgstr "Etiqueta"
+msgstr "Étiquette"
 
 #: edit-post.php:97
 #@ fcpt
 msgid "Public"
-msgstr "Pública"
+msgstr "Publique"
 
 #: edit-post.php:98
 #: edit-taxonomy.php:111
 #@ fcpt
 msgid "Show UI"
-msgstr "Mostrar la interfaz de usuario"
+msgstr "Montrer l&#39;interface utilisateur"
 
 #: edit-post.php:100
 #: edit-taxonomy.php:110
 #@ fcpt
 msgid "Hierarchical"
-msgstr "Jerárquica"
+msgstr "Hiérarchique"
 
 #: edit-post.php:101
 #: edit-taxonomy.php:113
 #@ fcpt
 msgid "Rewrite"
-msgstr "Rewrite"
+msgstr "Récrire"
 
 #: edit-post.php:116
 #@ fcpt
 msgid "Supports"
-msgstr "Soporta"
+msgstr ""
 
 #: edit-post.php:74
 #@ fcpt
 msgid "Edit Custom Post Type"
-msgstr "Editar tipo de post personalizado"
+msgstr ""
 
 #: edit-post.php:15
 #: edit-post.php:28
@@ -79,13 +79,13 @@ msgstr "Editar tipo de post personalizado"
 #: manage-elements.php:60
 #@ fcpt
 msgid "Description"
-msgstr "Descripción"
+msgstr "Descriptif"
 
 #: manage-elements.php:29
 #: manage-elements.php:67
 #@ fcpt
 msgid "Edit"
-msgstr "Editar"
+msgstr "Modifier"
 
 #: edit-post.php:139
 #@ fcpt
@@ -95,111 +95,12 @@ msgstr ""
 #: edit-taxonomy.php:75
 #@ fcpt
 msgid "Edit Custom Taxonomy"
-msgstr "Editar taxonomía personalizada"
-
-#: custom-post-type.php:150
-#: edit-post.php:14
-#: edit-post.php:27
-#: edit-taxonomy.php:14
-#: edit-taxonomy.php:27
-#@ fcpt
-msgid "Title"
-msgstr "Título"
-
-#: custom-post-type.php:190
-#: custom-post-type.php:226
-#@ default
-msgid "title"
 msgstr ""
 
-#: custom-post-type.php:378
+#: edit-taxonomy.php:89
 #@ fcpt
-msgid "The post type was saved successfully"
+msgid "Attach to Post Type"
 msgstr ""
-
-#: custom-post-type.php:444
-#@ fcpt
-msgid "Select one"
-msgstr "Seleccionar uno"
-
-#: edit-post.php:91
-#@ fcpt
-msgid "Icon"
-msgstr "Ícono"
-
-#: edit-post.php:92
-#@ fcpt
-msgid "Status"
-msgstr "Estado"
-
-#: edit-post.php:153
-#: edit-taxonomy.php:117
-#@ fcpt
-msgid "Save changes"
-msgstr "Guardar cambios"
-
-#: edit-post.php:2
-#@ fcpt
-msgid "Custom Post Type"
-msgstr ""
-
-#: manage-elements.php:13
-#: manage-elements.php:20
-#@ fcpt
-msgid "Post type"
-msgstr "Tipo de post"
-
-#: manage-elements.php:36
-#@ fcpt
-msgid "There are no custom post types"
-msgstr "No hay tipos de entrada personalizados"
-
-#: manage-elements.php:44
-#@ fcpt
-msgid "Custom Taxonomies"
-msgstr "Taxonomías personalizadas"
-
-#: manage-elements.php:53
-#: manage-elements.php:59
-#@ fcpt
-msgid "Taxonomy"
-msgstr "Taxonomía"
-
-#: manage-elements.php:74
-#@ fcpt
-msgid "There are no custom taxonomies"
-msgstr "No hay taxonomías personalizadas"
-
-#: edit-post.php:16
-#: edit-post.php:29
-#: edit-taxonomy.php:16
-#: edit-taxonomy.php:29
-#@ fcpt
-msgid "Type"
-msgstr "Tipo"
-
-#: edit-post.php:50
-#: edit-taxonomy.php:50
-#: manage-elements.php:29
-#: manage-elements.php:67
-#@ fcpt
-msgid "Delete"
-msgstr "Eliminar"
-
-#: manage-elements.php:3
-#@ fcpt
-msgid "Custom Elements"
-msgstr "Elementos personalizados"
-
-#: custom-post-type.php:316
-#@ fcpt
-msgid "Add post types"
-msgstr "Agregar tipos de entrada"
-
-#: custom-post-type.php:317
-#@ fcpt
-msgid "Add taxonomies"
-msgstr "Agregar taxonomías"
 
 #: custom-post-type.php:64
 #@ fcpt
@@ -209,22 +110,37 @@ msgstr ""
 #: custom-post-type.php:139
 #@ fcpt
 msgid "None"
-msgstr "Ninguna"
+msgstr "Aucun"
+
+#: custom-post-type.php:150
+#: edit-post.php:14
+#: edit-post.php:27
+#: edit-taxonomy.php:14
+#: edit-taxonomy.php:27
+#@ fcpt
+msgid "Title"
+msgstr "Titre"
 
 #: custom-post-type.php:151
 #@ fcpt
 msgid "Author"
-msgstr "Autor"
+msgstr "Auteur"
 
 #: custom-post-type.php:152
 #@ fcpt
 msgid "Taxonomies"
-msgstr "Taxonomias"
+msgstr "Taxonomies"
 
 #: custom-post-type.php:153
 #@ fcpt
 msgid "Date"
-msgstr "Fecha"
+msgstr "Date"
+
+#: custom-post-type.php:190
+#: custom-post-type.php:226
+#@ default
+msgid "title"
+msgstr ""
 
 #: custom-post-type.php:194
 #@ default
@@ -234,7 +150,40 @@ msgstr ""
 #: custom-post-type.php:215
 #@ fcpt
 msgid "Additional fields"
-msgstr "Campos adicionales"
+msgstr "Des champs supplémentaires"
+
+#: custom-post-type.php:316
+#@ fcpt
+msgid "Add post types"
+msgstr "Ajouter des types de post"
+
+#: custom-post-type.php:317
+#@ fcpt
+msgid "Add taxonomies"
+msgstr "Ajouter taxonomies"
+
+#: custom-post-type.php:378
+#@ fcpt
+msgid "The post type was saved successfully"
+msgstr ""
+
+#: custom-post-type.php:444
+#@ fcpt
+msgid "Select one"
+msgstr "Sélectionnez un"
+
+#: edit-post.php:2
+#@ fcpt
+msgid "Custom Post Type"
+msgstr ""
+
+#: edit-post.php:16
+#: edit-post.php:29
+#: edit-taxonomy.php:16
+#: edit-taxonomy.php:29
+#@ fcpt
+msgid "Type"
+msgstr "Tapez"
 
 #: edit-post.php:18
 #: edit-post.php:31
@@ -242,40 +191,91 @@ msgstr "Campos adicionales"
 #: edit-taxonomy.php:31
 #@ fcpt
 msgid "Is it a multilanguage field?"
-msgstr "Es un campo multidioma?"
+msgstr "Est-il un domaine multilingues?"
+
+#: edit-post.php:50
+#: edit-taxonomy.php:50
+#: manage-elements.php:29
+#: manage-elements.php:67
+#@ fcpt
+msgid "Delete"
+msgstr "Supprimer"
 
 #: edit-post.php:83
 #: edit-taxonomy.php:82
 #@ fcpt
 msgid "Basic options"
-msgstr "Opciones básicas"
+msgstr "Les options de base"
+
+#: edit-post.php:91
+#@ fcpt
+msgid "Icon"
+msgstr "Icône"
+
+#: edit-post.php:92
+#@ fcpt
+msgid "Status"
+msgstr "Statut"
 
 #: edit-post.php:95
 #: edit-taxonomy.php:107
 #@ fcpt
 msgid "Advanced options"
-msgstr "Opciones avanzadas"
+msgstr "Options avancées"
+
+#: edit-post.php:153
+#: edit-taxonomy.php:117
+#@ fcpt
+msgid "Save changes"
+msgstr "Enregistrer les modifications"
 
 #: edit-taxonomy.php:2
 #@ fcpt
 msgid "Custom Taxonomy"
-msgstr "Taxonomía personalizada"
+msgstr "Taxonomie personnalisé"
 
-#: edit-taxonomy.php:89
+#: manage-elements.php:3
 #@ fcpt
-msgid "Attach to Post Type"
+msgid "Custom Elements"
+msgstr "Éléments personnalisés"
+
+#: manage-elements.php:13
+#: manage-elements.php:20
+#@ fcpt
+msgid "Post type"
+msgstr ""
+
+#: manage-elements.php:36
+#@ fcpt
+msgid "There are no custom post types"
+msgstr ""
+
+#: manage-elements.php:44
+#@ fcpt
+msgid "Custom Taxonomies"
+msgstr ""
+
+#: manage-elements.php:53
+#: manage-elements.php:59
+#@ fcpt
+msgid "Taxonomy"
+msgstr "Taxonomie"
+
+#: manage-elements.php:74
+#@ fcpt
+msgid "There are no custom taxonomies"
 msgstr ""
 
 #: edit-post.php:89
 #: edit-taxonomy.php:88
 #@ fcpt
 msgid "Singular label"
-msgstr "Etiqueta singular"
+msgstr "Singulier étiquette"
 
 #: edit-post.php:99
 #@ fcpt
 msgid "Capability type"
-msgstr "Tipo de capacidad"
+msgstr "Type Capacité"
 
 #: edit-post.php:102
 #: edit-taxonomy.php:114
@@ -292,12 +292,12 @@ msgstr ""
 #: edit-post.php:104
 #@ fcpt
 msgid "Menu position"
-msgstr "Posición en el menú"
+msgstr "Position du menu"
 
 #: manage-elements.php:47
 #@ fcpt
 msgid "Add new taxonomy"
-msgstr "Agregar una nueva taxonomía"
+msgstr ""
 
 #: manage-elements.php:4
 #@ fcpt
