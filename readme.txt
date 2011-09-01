@@ -14,7 +14,7 @@ This plugin helps you to create, use and manage custom post types and custom tax
 1. Download the plugin from [here](http://wordpress.org/extend/plugins/flexible-custom-post-type/ "Flexible Custom Post Type").
 1. Extract all the files. 
 1. Upload everything (keeping the directory structure) to the `/wp-content/plugins/` directory.
-1. There should be a `/wp-content/plugins/flexible-custom-post-type` directory now with `qtranslate.php` in it.
+1. There should be a `/wp-content/plugins/flexible-custom-post-type` directory now with `custom-post-type.php` in it.
 1. Activate the plugin through the 'Plugins' menu in WordPress.An item called "Post types" will be added to the left menu.
 
 == Frequently Asked Questions ==
