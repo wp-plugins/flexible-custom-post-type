@@ -7,7 +7,7 @@ Stable tag: trunk
 
 == Description ==
 
-This plugin helps you to create, use and manage custom post types and custom taxonomies.
+This plugin helps you to create, use and manage custom post types and custom taxonomies. Also it allows to add custom fields to custom post type and custom taxonomies.
 
 == Installation ==
 
@@ -38,5 +38,7 @@ For multilanguage support you should use:
 4. The main menu of the custom post type
 
 == Changelog ==
-- 0.1 Initial release
-- 0.2 Fixed some bugs
+- 1.0 Initial release
+- 1.3 Fixed some bugs
+- 1.4 Added a set of icons
+- 1.5 Added custom fields to custom taxonomies

@@ -1,8 +1,63 @@
 <div class="wrap">
-    <h2>Custom Taxonomy</h2>
+    <h2><?php _e('Custom Taxonomy','fcpt') ?></h2>
     <br/>
     <div id="col-container">
         <form method="post" action="">
+
+             <?php if (isset($id)): ?>
+                <div id="col-right">
+                    <div class="col-wrap">
+                        <table cellspacing="0" class="widefat tag fixed">
+                            <thead>
+                                <tr>
+                                    <th style="width:120px" class="manage-column column-name" scope="col"><?php _e('Name', 'fcpt'); ?></th>
+                                    <th style="" class="manage-column column-description" scope="col"><?php _e('Title', 'fcpt'); ?></th>
+                                    <th style="" class="manage-column column-description" scope="col"><?php _e('Description', 'fcpt'); ?></th>
+                                    <th style="" class="manage-column column-posts num" scope="col"><?php _e('Type', 'fcpt'); ?></th>
+                                    <th style="" class="manage-column column-posts num" scope="col"></th>
+                                </tr>
+                            </thead>
+
+                            <tfoot>
+                                <tr>
+                                    <th style="" class="manage-column column-name" scope="col"><?php _e('Name', 'fcpt'); ?></th>
+                                    <th style="" class="manage-column column-description" scope="col"><?php _e('Title', 'fcpt'); ?></th>
+                                    <th style="" class="manage-column column-description" scope="col"><?php _e('Description', 'fcpt'); ?></th>
+                                    <th style="" class="manage-column column-posts num" scope="col"><?php _e('Type', 'fcpt'); ?></th>
+                                    <th style="" class="manage-column column-posts num" scope="col"></th>
+                                </tr>
+                            </tfoot>
+
+                            <tbody id="the-list">
+                            <?php $i = 0; ?>
+                            <?php if (is_array($custom_taxonomy['custom_fields'])): ?>
+                            <?php foreach ($custom_taxonomy['custom_fields'] as $custom_field): ?>
+                            <?php if ($custom_field['name'] != ''): ?>
+                                        <tr>
+                                            <td class="name column-name"><input style="width:100px" type="text" name="custom_fields[<?php echo $i; ?>][name]" value="<?php echo $custom_field['name'] ?>"/></td>
+                                            <td class="description column-description"><input class="multilanguage-input" type="text" name="custom_fields[<?php echo $i; ?>][title]" value="<?php echo $custom_field['title'] ?>"/></td>
+                                            <td class="description column-description"><input class="multilanguage-input" type="text" name="custom_fields[<?php echo $i; ?>][description]" value="<?php echo $custom_field['description'] ?>"/></td>
+                                            <td class="posts column-posts num"><?php echo $this->custom_select('custom_fields[' . $i . '][type]', array('text' => 'text', 'textarea' => 'textarea', 'date' => 'date'), $custom_field['type'], false); ?></td>
+                                            <td class="posts column-posts num"><a href="#" onclick="jQuery(this).parent().parent().remove(); return false;"><?php _e('Delete', 'fcpt'); ?></a></td>
+                                        </tr>
+                            <?php $i++; ?>
+                            <?php endif; ?>
+                            <?php endforeach; ?>
+                            <?php endif; ?>
+                                        <tr>
+                                            <td class="name column-name"><input style="width:100px" type="text" name="custom_fields[<?php echo $i; ?>][name]"/></td>
+                                            <td class="description column-description"><input class="multilanguage-input" type="text" name="custom_fields[<?php echo $i; ?>][title]"/></td>
+                                            <td class="description column-description"><input class="multilanguage-input" type="text" name="custom_fields[<?php echo $i; ?>][description]"/></td>
+
+                                            <td class="posts column-posts num"><?php echo $this->custom_select('custom_fields[' . $i . '][type]', array('text' => 'text', 'textarea' => 'textarea', 'date' => 'date'), $custom_field['type'], false); ?></td>
+                                            <td class="posts column-posts num"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+            <?php endif; ?>
+
             <div id="col-left">
                 <div id="poststuff">
                     <div class="postbox">
