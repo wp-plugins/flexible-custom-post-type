@@ -40,5 +40,5 @@ For multilanguage support you should use:
 == Changelog ==
 - 1.0 Initial release
 - 1.3 Fixed some bugs
-- 1.4 Added a set of icons
+- 1.4 Added a set of icons (thanks to http://randyjensenonline.com/thoughts/wordpress-custom-post-type-fugue-icons/)
 - 1.5 Added custom fields to custom taxonomies

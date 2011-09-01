@@ -19,6 +19,8 @@
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * Thanks to http://randyjensenonline.com/thoughts/wordpress-custom-post-type-fugue-icons/ for the icon pack.
  */
 
 class customPostType {
