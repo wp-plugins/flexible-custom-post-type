@@ -15,7 +15,7 @@ This plugin helps you to create, use and manage custom post types and custom tax
 1. Extract all the files. 
 1. Upload everything (keeping the directory structure) to the `/wp-content/plugins/` directory.
 1. There should be a `/wp-content/plugins/flexible-custom-post-type` directory now with `custom-post-type.php` in it.
-1. Activate the plugin through the 'Plugins' menu in WordPress.An item called "Post types" will be added to the left menu.
+1. Activate the plugin through the 'Plugins' menu in WordPress. An item called "Post types" will be added to the left menu.
 
 == Frequently Asked Questions ==
 
@@ -38,7 +38,7 @@ For multilanguage support you should use:
 4. The main menu of the custom post type
 
 == Changelog ==
-- 1.0 Initial release
-- 1.3 Fixed some bugs
-- 1.4 Added a set of icons (thanks to http://randyjensenonline.com/thoughts/wordpress-custom-post-type-fugue-icons/)
-- 1.5 Added custom fields to custom taxonomies
+- 0.1 Initial release
+- 0.1.3 Fixed some bugs
+- 0.1.4 Added a set of icons (thanks to http://randyjensenonline.com/thoughts/wordpress-custom-post-type-fugue-icons/)
+- 0.1.5 Added custom fields to custom taxonomies
