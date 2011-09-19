@@ -48,7 +48,7 @@ class customPostType {
           mkdir(WP_CONTENT_DIR . '/custom-post-types');
           } */
         global $wpdb;
-        $wpdb->query("CREATE TABLE `wp_taxonomymeta` (
+        $wpdb->query("CREATE TABLE `{$wpdb->taxonomymeta}` (
                         `meta_id` bigint(20) unsigned NOT NULL auto_increment,
                         `taxonomy_id` bigint(20) unsigned NOT NULL default '0',
                         `meta_key` varchar(255) default NULL,
@@ -297,7 +297,7 @@ class customPostType {
 <?php
             }
             
-            foreach($this->_fcpt_post_types as $post_type):
+            foreach((array)$this->_fcpt_post_types as $post_type):
             ?>
             <style type="text/css" media="screen">
                 #menu-posts-<?php echo $post_type['name'] ?> .wp-menu-image {
