@@ -126,12 +126,13 @@
                                                 'revisions' => 'revisions',
                                                 'thumbnail' => 'thumbnail',
                                                 'author' => 'author',
-                                                'page-attributes' => 'page-attributes'
+                                                'page-attributes' => 'page-attributes',
+                                                'show_in_nav_menus' => 'show_in_nav_menus'
                                                 ), $custom_post_type['supports'], array(
                                                 'title' => 'title',
                                                 'editor' => 'editor',                                                
                                                 'thumbnail' => 'thumbnail',
-                                                'author' => 'author',
+                                                'author' => 'author',                                                
                                                 ));
                                             ?>
                                             </div>

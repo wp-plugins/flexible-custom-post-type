@@ -4,7 +4,7 @@
   Plugin URI: http://786.pe
   Description: Admin panel for creating custom post types and custom taxonomies in WordPress
   Author: 786.pe
-  Version: 0.1.5
+  Version: 0.1.6
   Author URI:http://786.pe
   Tags: 786, custom, plugin, post type, taxonomy
  *
@@ -25,7 +25,7 @@
 
 class customPostType {
 
-    protected $_version = '0.1.5';
+    protected $_version = '0.1.6';
     protected $_message = false;
     protected $_plugin_basename;
     protected $_fcpt_post_types = array();
@@ -40,7 +40,45 @@ class customPostType {
         add_action('admin_menu', array($this, 'admin_menu'));
         add_action('admin_init', array($this, 'admin_init'));
         add_action('admin_head', array($this, 'admin_head'));
+        add_action('admin_head-nav-menus.php', array($this, 'admin_head_nav_menus'));
         add_action('init', array($this, 'init'));
+    }
+
+    public function admin_head_nav_menus() {
+        $post_type_args = array(
+            'show_in_nav_menus' => true
+        );
+
+        $post_types = get_post_types($post_type_args, 'object');
+
+        foreach ($post_types as $post_type) {
+            if ($post_type->has_archive) {
+                add_filter('nav_menu_items_' . $post_type->name, array($this, 'add_archive_checkbox'), null, 3);
+            }
+        }
+    }
+
+    public function add_archive_checkbox($posts, $args, $post_type) {
+        global $_nav_menu_placeholder, $wp_rewrite;
+        $_nav_menu_placeholder = ( 0 > $_nav_menu_placeholder ) ? intval($_nav_menu_placeholder) - 1 : -1;
+        $archive_slug = $post_type['args']->has_archive === true ? $post_type['args']->rewrite['slug'] : $post_type['args']->has_archive;
+        if ($post_type['args']->rewrite['with_front'])
+            $archive_slug = substr($wp_rewrite->front, 1) . $archive_slug;
+        else
+            $archive_slug = $wp_rewrite->root . $archive_slug;
+
+        array_unshift($posts, (object) array(
+                    'ID' => 0,
+                    'object_id' => $_nav_menu_placeholder,
+                    'post_content' => '',
+                    'post_excerpt' => '',
+                    'post_title' => $post_type['args']->labels->all_items,
+                    'post_type' => 'nav_menu_item',
+                    'type' => 'custom',
+                    'url' => site_url($archive_slug) . '/',
+                ));
+
+        return $posts;
     }
 
     public function register_activation_hook() {
@@ -136,7 +174,7 @@ class customPostType {
                             $output[] = '<a href="?' . $taxonomy['name'] . '=' . $term->slug . '&post_type=' . $post->post_type . '">' . $term->name . '</a>';
                         }
                     } else {
-                        $output = array(__('None','fcpt'));
+                        $output = array(__('None', 'fcpt'));
                     }
                     echo $taxonomy['label'] . ': ' . implode(', ', $output) . '<br />';
                 }
@@ -191,9 +229,9 @@ class customPostType {
                             </th>
                             <td>
                                 <input <?php echo $multilanguage; ?> type="text" name="term_meta[<?php echo $custom_field['name']; ?>]" size="40" value="<?php echo $value; ?>"><br/>
-                                <?php if ($custom_field['description'] != ''): ?><span class="description"><?php _e($custom_field['description']); ?></span><?php endif; ?>
-                        </td>
-                    </tr>
+<?php if ($custom_field['description'] != ''): ?><span class="description"><?php _e($custom_field['description']); ?></span><?php endif; ?>
+                                </td>
+                            </tr>
 <?php
                         }
                     }
@@ -296,284 +334,284 @@ class customPostType {
 
 <?php
             }
-            
-            foreach((array)$this->_fcpt_post_types as $post_type):
-            ?>
-            <style type="text/css" media="screen">
-                #menu-posts-<?php echo $post_type['name'] ?> .wp-menu-image {
-                    background: url(<?php echo WP_PLUGIN_URL . '/' . $this->_plugin_basename . '/icons/' . $post_type['menu_icon'] ?>) no-repeat 6px -17px !important;
-                }
-                #menu-posts-<?php echo $post_type['name'] ?>:hover .wp-menu-image, #menu-posts-<?php echo $post_type['name'] ?>.wp-has-current-submenu .wp-menu-image {
-                    background-position:6px 7px!important;
-                }
-            </style>
-            <?php
-            endforeach;
-        }
 
-        public function admin_menu() {
-            add_menu_page('Custom Post Types', 'Post Types', 'administrator', 'fcpt', array($this, 'manage_elements'), WP_PLUGIN_URL . '/flexible-custom-post-type/icons/default.png');
-            add_submenu_page('fcpt', 'Add Post Types', __('Add post types', 'fcpt'), 'administrator', 'fcpt-edit-post', array($this, 'edit_post'));
-            add_submenu_page('fcpt', 'Add Taxonomies', __('Add taxonomies', 'fcpt'), 'administrator', 'fcpt-edit-taxonomy', array($this, 'edit_taxonomy'));
-        }
-
-        public function manage_elements() {
-            if (!empty($_GET['id'])) {
-                switch ($_GET['element']) {
-                    case 'post':
-                        $this->delete_post_type($_GET['id']);
-                        break;
-                    case 'taxonomy':
-                        $this->delete_taxonomy($_GET['id']);
-                        break;
-                }
+            foreach ((array) $this->_fcpt_post_types as $post_type):
+?>
+                <style type="text/css" media="screen">
+                    #menu-posts-<?php echo $post_type['name'] ?> .wp-menu-image {
+                        background: url(<?php echo WP_PLUGIN_URL . '/' . $this->_plugin_basename . '/icons/' . $post_type['menu_icon'] ?>) no-repeat 6px -17px !important;
+                    }
+                    #menu-posts-<?php echo $post_type['name'] ?>:hover .wp-menu-image, #menu-posts-<?php echo $post_type['name'] ?>.wp-has-current-submenu .wp-menu-image {
+                        background-position:6px 7px!important;
+                    }
+                </style>
+<?php
+                endforeach;
             }
-            $custom_post_types = get_option('fcpt_custom_post_types');
-            $custom_post_types = (!is_array($custom_post_types)) ? array() : $custom_post_types;
-            $custom_taxonomies = get_option('fcpt_custom_taxonomies');
-            $custom_taxonomies = (!is_array($custom_taxonomies)) ? array() : $custom_taxonomies;
-            include('manage-elements.php');
-        }
 
-        public function delete_post_type($id) {
-            $custom_post_types = get_option('fcpt_custom_post_types');
-            if (isset($custom_post_types[$id])) {
-                unset($custom_post_types[$id]);
-                $i = 1;
-                foreach ($custom_post_types as $post_type) {
-                    $new_post_types[$i] = $post_type;
-                    $i++;
-                }
-                update_option('fcpt_custom_post_types', $new_post_types);
+            public function admin_menu() {
+                add_menu_page('Custom Post Types', 'Post Types', 'administrator', 'fcpt', array($this, 'manage_elements'), WP_PLUGIN_URL . '/flexible-custom-post-type/icons/default.png');
+                add_submenu_page('fcpt', 'Add Post Types', __('Add post types', 'fcpt'), 'administrator', 'fcpt-edit-post', array($this, 'edit_post'));
+                add_submenu_page('fcpt', 'Add Taxonomies', __('Add taxonomies', 'fcpt'), 'administrator', 'fcpt-edit-taxonomy', array($this, 'edit_taxonomy'));
             }
-        }
 
-        public function delete_taxonomy($id) {
-            $custom_taxonomies = get_option('fcpt_custom_taxonomies');
-            if (isset($custom_taxonomies[$id])) {
-                unset($custom_taxonomies[$id]);
-                $i = 1;
-                foreach ($custom_taxonomies as $taxonomy) {
-                    $new_taxonomies[$i] = $taxonomy;
-                    $i++;
+            public function manage_elements() {
+                if (!empty($_GET['id'])) {
+                    switch ($_GET['element']) {
+                        case 'post':
+                            $this->delete_post_type($_GET['id']);
+                            break;
+                        case 'taxonomy':
+                            $this->delete_taxonomy($_GET['id']);
+                            break;
+                    }
                 }
-                update_option('fcpt_custom_taxonomies', $new_taxonomies);
-            }
-        }
-
-        public function message($message=false) {
-            if ($message == false) {
-                if ($this->_message != '') {
-                    echo '<div class="updated" id="message"><p>' . $this->_message . '</p></div>';
-                }
-            } else {
-                $this->_message = $message;
-            }
-        }
-
-        public function edit_post() {
-            if (!empty($_POST)) {
-                /* check_admin_referer('fcpt_edit_post_type'); */
-                $id = $this->save_custom_post_type($_POST);
-                $this->message(__('The post type was saved successfully','fcpt'));
-            } else {
-                if (isset($_GET['id'])) {
-                    $id = $_GET['id'];
-                }
-            }
-            if (isset($id)) {
                 $custom_post_types = get_option('fcpt_custom_post_types');
-                $custom_post_type = $custom_post_types[$id];
-                $single = WP_CONTENT_DIR . str_replace(WP_CONTENT_URL, '', get_bloginfo('template_directory')) . '/single-' . $custom_post_type['name'] . '.php';
-                $archive = WP_CONTENT_DIR . str_replace(WP_CONTENT_URL, '', get_bloginfo('template_directory')) . '/archive-' . $custom_post_type['name'] . '.php';
-                if (!file_exists($single)) {
-                    $fp = fopen($single, 'a+');
-                    fwrite($fp, '<?php /* This is a autogenerated template by Flexible Custom Post Type  */ ?>');
-                    fclose($fp);
-                }
-                if (!file_exists($archive)) {
-                    $fp = fopen($archive, 'a+');
-                    fwrite($fp, '<?php /* This is a autogenerated template by Flexible Custom Post Type  */ ?>');
-                    fclose($fp);
-                }
-            } else {
-                $custom_post_type = array();
-            }
-            include('edit-post.php');
-        }
-
-        public function edit_taxonomy() {
-            if (!empty($_POST)) {
-                /* check_admin_referer('fcpt_edit_post_type'); */
-                $id = $this->save_custom_taxonomy($_POST);
-                $message = __('');
-            } else {
-                if (isset($_GET['id'])) {
-                    $id = $_GET['id'];
-                }
-            }
-            if (isset($id)) {
+                $custom_post_types = (!is_array($custom_post_types)) ? array() : $custom_post_types;
                 $custom_taxonomies = get_option('fcpt_custom_taxonomies');
-                $custom_taxonomy = $custom_taxonomies[$id];
-                $taxonomy_uri = WP_CONTENT_DIR . str_replace(WP_CONTENT_URL, '', get_bloginfo('template_directory')) . '/taxonomy-' . $custom_taxonomy['name'] . '.php';
-                if (!file_exists($taxonomy_uri)) {
-                    $fp = fopen($taxonomy_uri, 'a+');
-                    fwrite($fp, '<?php /* This is a autogenerated template by Flexible Custom Post Type  */ ?>');
-                    fclose($fp);
-                }
-            } else {
-                $custom_taxonomy = array();
+                $custom_taxonomies = (!is_array($custom_taxonomies)) ? array() : $custom_taxonomies;
+                include('manage-elements.php');
             }
-            include('edit-taxonomy.php');
-        }
 
-        public function custom_select($atts, $arr_values, $current_value, $select_one = true) {
-            $html_atts = '';
-            switch(gettype($atts)){
-                case 'string':
-                    $html_atts = array('name="' . $atts . '"');
-                    break;
-                case 'array':
-                    foreach($atts as $key => $value){
-                        $html_atts[] = $key . '="' . $value . '"';
+            public function delete_post_type($id) {
+                $custom_post_types = get_option('fcpt_custom_post_types');
+                if (isset($custom_post_types[$id])) {
+                    unset($custom_post_types[$id]);
+                    $i = 1;
+                    foreach ($custom_post_types as $post_type) {
+                        $new_post_types[$i] = $post_type;
+                        $i++;
                     }
-                    break;
-            }
-            $output = '<select ' . implode(' ', $html_atts) . '>';
-            if ($select_one)
-                $output .= '<option value="" ' . ('' == $current_value ? 'selected="selected"' : '') . '>' . __('Select one', 'fcpt') . '</option>';
-            foreach ($arr_values as $value => $title) {
-                $output .= '<option value="' . $value . '" ' . ($value == $current_value ? 'selected="selected"' : '') . '>' . __($title, 'fcpt') . '</option>';
-            }
-            $output .= '</select>';
-            return $output;
-        }
-
-        public function custom_checkbox($name, $arr_values, $current_values=array(), $default_values=array()) {
-            $output = '';
-            if (empty($current_values)) {
-                $current_values = $default_values;
-            }
-            foreach ($arr_values as $value => $title) {
-                $output .= '<input type="checkbox" name="' . $name . '[]" id="' . $name . '-' . sanitize_title($value) . '" value="' . $value . '" ' . (in_array($value, $current_values) ? 'checked="checked"' : '') . '> <label for="' . $name . '-' . sanitize_title($value) . '">' . __($title, 'fcpt') . '</label><br/>';
-            }
-
-            return $output;
-        }
-
-        public function unset_values($array, $arr_values=array()) {
-            foreach ($arr_values as $value) {
-                unset($array[$value]);
-            }
-            return $array;
-        }
-
-        public function prepare_custom_post_type($post_type) {
-            if ($post_type['rewrite_slug'] == '') {
-                $post_type['rewrite_slug'] = str_replace('_', '-', $post_type['name']);
-            }
-            if (!is_array($post_type['taxonomies'])) {
-                $post_type['taxonomies'] = array();
-            }
-            return $post_type;
-        }
-
-        public function save_custom_post_type($post_type) {
-            $post_type = $this->prepare_custom_post_type($post_type);
-            $custom_post_types = get_option('fcpt_custom_post_types');
-            $custom_post_types = is_array($custom_post_types) ? $custom_post_types : array();
-            if ($post_type['id'] == '') {
-                $post_type['id'] = count($custom_post_types) + 1;
-                $post_type['name'] = sanitize_title($post_type['name']);
-            } else {
-                $post_type['name'] = $custom_post_types[$post_type['id']]['name'];
-            }            
-            $post_type['custom_fields'] = $this->validate_custom_fields($post_type['custom_fields']);
-            $post_type = $this->unset_values($post_type, array('_wpnonce', '_wp_http_referer'));
-            $custom_post_types[$post_type['id']] = $post_type;
-            update_option('fcpt_custom_post_types', $custom_post_types);
-            /* $this->create_translation_files($post_type['name'], $post_type['labels']); */
-            return $post_type['id'];
-        }
-
-        public function prepare_custom_taxonomy($taxonomy) {
-            if ($taxonomy['rewrite_slug'] == '') {
-                $taxonomy['rewrite_slug'] = str_replace('_', '-', $taxonomy['name']);
-            }
-            if (!is_array($taxonomy['post_types'])) {
-                $taxonomy['post_types'] = array();
-            }
-            return $taxonomy;
-        }
-
-        public function save_custom_taxonomy($taxonomy) {
-            $taxonomy = $this->prepare_custom_taxonomy($taxonomy);
-            $custom_taxonomies = get_option('fcpt_custom_taxonomies');
-            $custom_taxonomies = is_array($custom_taxonomies) ? $custom_taxonomies : array();
-            if ($taxonomy['id'] == '') {
-                $taxonomy['id'] = count($custom_taxonomies) + 1;
-                $taxonomy['name'] = sanitize_title($taxonomy['name']);
-            } else {
-                $taxonomy['name'] = $custom_taxonomies[$taxonomy['id']]['name'];
-            }
-            $taxonomy['custom_fields'] = $this->validate_custom_fields($taxonomy['custom_fields']);
-            $taxonomy = $this->unset_values($taxonomy, array('_wpnonce', '_wp_http_referer'));
-            $custom_taxonomies[$taxonomy['id']] = $taxonomy;
-            update_option('fcpt_custom_taxonomies', $custom_taxonomies);
-            /* $this->create_translation_files($_POST['name'], $_POST['labels']); */
-            return $taxonomy['id'];
-        }
-
-        public function validate_custom_fields($custom_fields) {
-            if (is_array($custom_fields)) {
-                foreach ($custom_fields as $key => $field) {
-                    if ($custom_fields[$key]['name'] == '') {
-                        unset($custom_fields[$key]);
-                    } else {
-                        $custom_fields[$key]['name'] = sanitize_title($custom_fields[$key]['name']);
-                        $custom_fields[$key]['multilanguage'] = ($custom_fields[$key]['multilanguage'] == '') ? false : true;
-                    }
+                    update_option('fcpt_custom_post_types', $new_post_types);
                 }
             }
-            return $custom_fields;
-        }
 
-        public function create_translation_files($post_type, $labels) {
-            /* $f = fopen(WP_CONTENT_DIR . '/custom_post_types/' . $post_type . '/');
-              foreach($labels as $label){
-
-              } */
-        }
-
-        public function to_boolean($string) {
-            switch ($string) {
-                case 'true':
-                    return true;
-                    break;
-                case 'false':
-                    return false;
-                    break;
+            public function delete_taxonomy($id) {
+                $custom_taxonomies = get_option('fcpt_custom_taxonomies');
+                if (isset($custom_taxonomies[$id])) {
+                    unset($custom_taxonomies[$id]);
+                    $i = 1;
+                    foreach ($custom_taxonomies as $taxonomy) {
+                        $new_taxonomies[$i] = $taxonomy;
+                        $i++;
+                    }
+                    update_option('fcpt_custom_taxonomies', $new_taxonomies);
+                }
             }
-        }
 
-        public function to_value($value, $type='text') {
-            switch ($type) {
-                case 'text';
-                    $value = isset($value) ? $value : '';
+            public function message($message=false) {
+                if ($message == false) {
+                    if ($this->_message != '') {
+                        echo '<div class="updated" id="message"><p>' . $this->_message . '</p></div>';
+                    }
+                } else {
+                    $this->_message = $message;
+                }
             }
-            return $value;
+
+            public function edit_post() {
+                if (!empty($_POST)) {
+                    /* check_admin_referer('fcpt_edit_post_type'); */
+                    $id = $this->save_custom_post_type($_POST);
+                    $this->message(__('The post type was saved successfully', 'fcpt'));
+                } else {
+                    if (isset($_GET['id'])) {
+                        $id = $_GET['id'];
+                    }
+                }
+                if (isset($id)) {
+                    $custom_post_types = get_option('fcpt_custom_post_types');
+                    $custom_post_type = $custom_post_types[$id];
+                    $single = WP_CONTENT_DIR . str_replace(WP_CONTENT_URL, '', get_bloginfo('template_directory')) . '/single-' . $custom_post_type['name'] . '.php';
+                    $archive = WP_CONTENT_DIR . str_replace(WP_CONTENT_URL, '', get_bloginfo('template_directory')) . '/archive-' . $custom_post_type['name'] . '.php';
+                    if (!file_exists($single)) {
+                        $fp = fopen($single, 'a+');
+                        fwrite($fp, '<?php /* This is a autogenerated template by Flexible Custom Post Type  */ ?>');
+                        fclose($fp);
+                    }
+                    if (!file_exists($archive)) {
+                        $fp = fopen($archive, 'a+');
+                        fwrite($fp, '<?php /* This is a autogenerated template by Flexible Custom Post Type  */ ?>');
+                        fclose($fp);
+                    }
+                } else {
+                    $custom_post_type = array();
+                }
+                include('edit-post.php');
+            }
+
+            public function edit_taxonomy() {
+                if (!empty($_POST)) {
+                    /* check_admin_referer('fcpt_edit_post_type'); */
+                    $id = $this->save_custom_taxonomy($_POST);
+                    $message = __('');
+                } else {
+                    if (isset($_GET['id'])) {
+                        $id = $_GET['id'];
+                    }
+                }
+                if (isset($id)) {
+                    $custom_taxonomies = get_option('fcpt_custom_taxonomies');
+                    $custom_taxonomy = $custom_taxonomies[$id];
+                    $taxonomy_uri = WP_CONTENT_DIR . str_replace(WP_CONTENT_URL, '', get_bloginfo('template_directory')) . '/taxonomy-' . $custom_taxonomy['name'] . '.php';
+                    if (!file_exists($taxonomy_uri)) {
+                        $fp = fopen($taxonomy_uri, 'a+');
+                        fwrite($fp, '<?php /* This is a autogenerated template by Flexible Custom Post Type  */ ?>');
+                        fclose($fp);
+                    }
+                } else {
+                    $custom_taxonomy = array();
+                }
+                include('edit-taxonomy.php');
+            }
+
+            public function custom_select($atts, $arr_values, $current_value, $select_one = true) {
+                $html_atts = '';
+                switch (gettype($atts)) {
+                    case 'string':
+                        $html_atts = array('name="' . $atts . '"');
+                        break;
+                    case 'array':
+                        foreach ($atts as $key => $value) {
+                            $html_atts[] = $key . '="' . $value . '"';
+                        }
+                        break;
+                }
+                $output = '<select ' . implode(' ', $html_atts) . '>';
+                if ($select_one)
+                    $output .= '<option value="" ' . ('' == $current_value ? 'selected="selected"' : '') . '>' . __('Select one', 'fcpt') . '</option>';
+                foreach ($arr_values as $value => $title) {
+                    $output .= '<option value="' . $value . '" ' . ($value == $current_value ? 'selected="selected"' : '') . '>' . __($title, 'fcpt') . '</option>';
+                }
+                $output .= '</select>';
+                return $output;
+            }
+
+            public function custom_checkbox($name, $arr_values, $current_values=array(), $default_values=array()) {
+                $output = '';
+                if (empty($current_values)) {
+                    $current_values = $default_values;
+                }
+                foreach ($arr_values as $value => $title) {
+                    $output .= '<input type="checkbox" name="' . $name . '[]" id="' . $name . '-' . sanitize_title($value) . '" value="' . $value . '" ' . (in_array($value, $current_values) ? 'checked="checked"' : '') . '> <label for="' . $name . '-' . sanitize_title($value) . '">' . __($title, 'fcpt') . '</label><br/>';
+                }
+
+                return $output;
+            }
+
+            public function unset_values($array, $arr_values=array()) {
+                foreach ($arr_values as $value) {
+                    unset($array[$value]);
+                }
+                return $array;
+            }
+
+            public function prepare_custom_post_type($post_type) {
+                if ($post_type['rewrite_slug'] == '') {
+                    $post_type['rewrite_slug'] = str_replace('_', '-', $post_type['name']);
+                }
+                if (!is_array($post_type['taxonomies'])) {
+                    $post_type['taxonomies'] = array();
+                }
+                return $post_type;
+            }
+
+            public function save_custom_post_type($post_type) {
+                $post_type = $this->prepare_custom_post_type($post_type);
+                $custom_post_types = get_option('fcpt_custom_post_types');
+                $custom_post_types = is_array($custom_post_types) ? $custom_post_types : array();
+                if ($post_type['id'] == '') {
+                    $post_type['id'] = count($custom_post_types) + 1;
+                    $post_type['name'] = sanitize_title($post_type['name']);
+                } else {
+                    $post_type['name'] = $custom_post_types[$post_type['id']]['name'];
+                }
+                $post_type['custom_fields'] = $this->validate_custom_fields($post_type['custom_fields']);
+                $post_type = $this->unset_values($post_type, array('_wpnonce', '_wp_http_referer'));
+                $custom_post_types[$post_type['id']] = $post_type;
+                update_option('fcpt_custom_post_types', $custom_post_types);
+                /* $this->create_translation_files($post_type['name'], $post_type['labels']); */
+                return $post_type['id'];
+            }
+
+            public function prepare_custom_taxonomy($taxonomy) {
+                if ($taxonomy['rewrite_slug'] == '') {
+                    $taxonomy['rewrite_slug'] = str_replace('_', '-', $taxonomy['name']);
+                }
+                if (!is_array($taxonomy['post_types'])) {
+                    $taxonomy['post_types'] = array();
+                }
+                return $taxonomy;
+            }
+
+            public function save_custom_taxonomy($taxonomy) {
+                $taxonomy = $this->prepare_custom_taxonomy($taxonomy);
+                $custom_taxonomies = get_option('fcpt_custom_taxonomies');
+                $custom_taxonomies = is_array($custom_taxonomies) ? $custom_taxonomies : array();
+                if ($taxonomy['id'] == '') {
+                    $taxonomy['id'] = count($custom_taxonomies) + 1;
+                    $taxonomy['name'] = sanitize_title($taxonomy['name']);
+                } else {
+                    $taxonomy['name'] = $custom_taxonomies[$taxonomy['id']]['name'];
+                }
+                $taxonomy['custom_fields'] = $this->validate_custom_fields($taxonomy['custom_fields']);
+                $taxonomy = $this->unset_values($taxonomy, array('_wpnonce', '_wp_http_referer'));
+                $custom_taxonomies[$taxonomy['id']] = $taxonomy;
+                update_option('fcpt_custom_taxonomies', $custom_taxonomies);
+                /* $this->create_translation_files($_POST['name'], $_POST['labels']); */
+                return $taxonomy['id'];
+            }
+
+            public function validate_custom_fields($custom_fields) {
+                if (is_array($custom_fields)) {
+                    foreach ($custom_fields as $key => $field) {
+                        if ($custom_fields[$key]['name'] == '') {
+                            unset($custom_fields[$key]);
+                        } else {
+                            $custom_fields[$key]['name'] = sanitize_title($custom_fields[$key]['name']);
+                            $custom_fields[$key]['multilanguage'] = ($custom_fields[$key]['multilanguage'] == '') ? false : true;
+                        }
+                    }
+                }
+                return $custom_fields;
+            }
+
+            public function create_translation_files($post_type, $labels) {
+                /* $f = fopen(WP_CONTENT_DIR . '/custom_post_types/' . $post_type . '/');
+                  foreach($labels as $label){
+
+                  } */
+            }
+
+            public function to_boolean($string) {
+                switch ($string) {
+                    case 'true':
+                        return true;
+                        break;
+                    case 'false':
+                        return false;
+                        break;
+                }
+            }
+
+            public function to_value($value, $type='text') {
+                switch ($type) {
+                    case 'text';
+                        $value = isset($value) ? $value : '';
+                }
+                return $value;
+            }
+
         }
 
-    }
+        $fcpt = new customPostType();
 
-    $fcpt = new customPostType();
+        function get_custom_post_thumbnail($post_id) {
+            $thumbnail_id = get_post_meta($post_id, '_thumbnail_id', true);
+            return wp_get_attachment_url($thumbnail_id, 'thumbnail');
+        }
 
-    function get_custom_post_thumbnail($post_id) {
-        $thumbnail_id = get_post_meta($post_id, '_thumbnail_id', true);
-        return wp_get_attachment_url($thumbnail_id, 'thumbnail');
-    }
-
-    function get_taxonomy_meta($taxonomy_id, $key, $single = false) {
-        return get_metadata('taxonomy', $taxonomy_id, $key, $single);
-    }
+        function get_taxonomy_meta($taxonomy_id, $key, $single = false) {
+            return get_metadata('taxonomy', $taxonomy_id, $key, $single);
+        }
 ?>
