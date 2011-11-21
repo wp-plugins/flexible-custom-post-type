@@ -112,6 +112,7 @@
                                     <tr valign="top"><th scope="row"><?php _e('Query var', 'fcpt') ?></th><td><?php echo $this->custom_select('query_var', array('true' => 'Yes', 'false' => 'No'), $custom_taxonomy['query_var'], false); ?></td></tr>
                                     <tr valign="top"><th scope="row"><?php _e('Rewrite', 'fcpt') ?></th><td><?php echo $this->custom_select('rewrite', array('true' => 'Yes', 'false' => 'No'), $custom_taxonomy['rewrite'], false); ?></td></tr>
                                     <tr valign="top"><th scope="row"><?php _e('Custom rewrite slug', 'fcpt') ?></th><td><input type="text" name="rewrite_slug" tabindex="9" value="<?php echo isset($custom_taxonomy['rewrite_slug']) ? esc_attr($custom_taxonomy['rewrite_slug']) : ''; ?>" /></td></tr>
+                                    <tr valign="top"><th scope="row"><?php _e('Custom posts per page', 'fcpt') ?></th><td><input type="text" name="posts_per_page" tabindex="9" value="<?php echo isset($custom_taxonomy['posts_per_page']) ? esc_attr($custom_taxonomy['posts_per_page']) : ''; ?>" /></td></tr>
                                 </tbody>
                             </table>
                             <p class="submit"><input type="submit" class="button-primary" tabindex="21" value="<?php _e('Save changes', 'fcpt') ?>" /></p>

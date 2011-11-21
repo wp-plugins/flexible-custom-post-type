@@ -42,15 +42,27 @@ class customPostType {
         add_action('admin_head', array($this, 'admin_head'));
         add_action('admin_head-nav-menus.php', array($this, 'admin_head_nav_menus'));
         add_action('init', array($this, 'init'));
+        add_filter('pre_get_posts', array($this, 'custom_posts_per_page'));
+    }
+
+    function custom_posts_per_page($wp_query) {
+        if(!is_admin()){
+            foreach($this->_fcpt_taxonomies as $taxonomy){                
+                if($wp_query->tax_query->queries[0]['taxonomy'] == $taxonomy['name']){
+                    if(intval($taxonomy['posts_per_page']) != 0){                        
+                        $wp_query->set('posts_per_page', $taxonomy['posts_per_page']);
+                    }
+                }
+            }
+        }
+        return $wp_query;
     }
 
     public function admin_head_nav_menus() {
         $post_type_args = array(
             'show_in_nav_menus' => true
         );
-
         $post_types = get_post_types($post_type_args, 'object');
-
         foreach ($post_types as $post_type) {
             if ($post_type->has_archive) {
                 add_filter('nav_menu_items_' . $post_type->name, array($this, 'add_archive_checkbox'), null, 3);
@@ -76,15 +88,12 @@ class customPostType {
                     'post_type' => 'nav_menu_item',
                     'type' => 'custom',
                     'url' => site_url($archive_slug) . '/',
-                ));
+        ));
 
         return $posts;
     }
 
     public function register_activation_hook() {
-        /* if (!is_dir(WP_CONTENT_DIR . '/custom-post-types')) {
-          mkdir(WP_CONTENT_DIR . '/custom-post-types');
-          } */
         global $wpdb;
         $wpdb->query("CREATE TABLE `{$wpdb->taxonomymeta}` (
                         `meta_id` bigint(20) unsigned NOT NULL auto_increment,
