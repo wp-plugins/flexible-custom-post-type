@@ -1,3 +1,7 @@
+<?php
+    if(basename($_SERVER['PHP_SELF']) != 'admin.php')
+        die();
+?>
 <div class="wrap">
     <h2><?php _e('Custom Post Type','fcpt'); ?></h2>
     <?php echo $this->message(); ?>

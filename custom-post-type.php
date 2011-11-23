@@ -23,6 +23,9 @@
  * Thanks to http://randyjensenonline.com/thoughts/wordpress-custom-post-type-fugue-icons/ for the icon pack.
  */
 
+if(basename($_SERVER['PHP_SELF']) != 'admin.php')
+    die();
+
 class customPostType {
 
     protected $_version = '0.1.6';
@@ -366,12 +369,13 @@ class customPostType {
 
             public function manage_elements() {
                 if (!empty($_GET['id'])) {
+                    $id = (int) $_GET['id'];
                     switch ($_GET['element']) {
                         case 'post':
-                            $this->delete_post_type($_GET['id']);
+                            $this->delete_post_type($id);
                             break;
                         case 'taxonomy':
-                            $this->delete_taxonomy($_GET['id']);
+                            $this->delete_taxonomy($id);
                             break;
                     }
                 }
@@ -425,7 +429,7 @@ class customPostType {
                     $this->message(__('The post type was saved successfully', 'fcpt'));
                 } else {
                     if (isset($_GET['id'])) {
-                        $id = $_GET['id'];
+                        $id = (int) $_GET['id'];
                     }
                 }
                 if (isset($id)) {
@@ -456,7 +460,7 @@ class customPostType {
                     $message = __('');
                 } else {
                     if (isset($_GET['id'])) {
-                        $id = $_GET['id'];
+                        $id = (int) $_GET['id'];
                     }
                 }
                 if (isset($id)) {

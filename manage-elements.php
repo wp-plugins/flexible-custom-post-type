@@ -1,3 +1,7 @@
+<?php
+    if(basename($_SERVER['PHP_SELF']) != 'admin.php')
+        die();
+?>
 <div class="wrap">
     <div class="icon32" id="icon-options-general"><br></div>
     <h2><?php _e('Custom Elements', 'fcpt'); ?></h2>

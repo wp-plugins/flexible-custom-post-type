@@ -1,3 +1,7 @@
+<?php
+    if(basename($_SERVER['PHP_SELF']) != 'admin.php')
+        die();
+?>
 <div class="wrap">
     <h2><?php _e('Custom Taxonomy','fcpt') ?></h2>
     <br/>
