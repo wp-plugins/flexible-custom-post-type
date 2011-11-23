@@ -28,7 +28,7 @@ if(basename($_SERVER['PHP_SELF']) != 'admin.php')
 
 class customPostType {
 
-    protected $_version = '0.1.6';
+    protected $_version = '0.1.7';
     protected $_message = false;
     protected $_plugin_basename;
     protected $_fcpt_post_types = array();
