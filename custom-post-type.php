@@ -23,9 +23,6 @@
  * Thanks to http://randyjensenonline.com/thoughts/wordpress-custom-post-type-fugue-icons/ for the icon pack.
  */
 
-if(basename($_SERVER['PHP_SELF']) != 'admin.php')
-    die();
-
 class customPostType {
 
     protected $_version = '0.1.7';
