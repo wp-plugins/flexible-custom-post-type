@@ -4,7 +4,7 @@
   Plugin URI: http://786.pe
   Description: Admin panel for creating custom post types and custom taxonomies in WordPress
   Author: 786.pe
-  Version: 0.1.7
+  Version: 0.1.8
   Author URI:http://786.pe
   Tags: 786, custom, plugin, post type, taxonomy
  *
@@ -25,11 +25,12 @@
 
 class customPostType {
 
-    protected $_version = '0.1.7';
+    protected $_version = '0.1.8';
     protected $_message = false;
     protected $_plugin_basename;
     protected $_fcpt_post_types = array();
     protected $_fcpt_taxonomies = array();
+    protected $_labels;
 
     public function __construct() {
         global $wpdb;
@@ -37,6 +38,17 @@ class customPostType {
         $this->_plugin_basename = dirname(plugin_basename(__FILE__));
         register_activation_hook(__FILE__, array($this, 'register_activation_hook'));
         load_plugin_textdomain('fcpt', false, $this->_plugin_basename . '/languages');
+        $this->_labels = array(
+            'add_new' => array('singular_label', __('Add New', 'fcpt')),
+            'add_new_item' => array('singular_label', __('Add New %s', 'fcpt')),
+            'edit_item' => array('singular_label', __('Edit %s', 'fcpt')),
+            'new_item' => array('singular_label', __('New %s', 'fcpt')),
+            'all_items' => array('label', __('All %s', 'fcpt')),
+            'view_item' => array('singular_label', __('View %s', 'fcpt')),
+            'search_items' => array('label', __('Search %s', 'fcpt')),
+            'not_found' => array('label', __('No %s found', 'fcpt')),
+            'not_found_in_trash' => array('label', __('No %s found in Trash', 'fcpt'))
+        );
         add_action('admin_menu', array($this, 'admin_menu'));
         add_action('admin_init', array($this, 'admin_init'));
         add_action('admin_head', array($this, 'admin_head'));
@@ -46,10 +58,10 @@ class customPostType {
     }
 
     function custom_posts_per_page($wp_query) {
-        if(!is_admin()){
-            foreach($this->_fcpt_taxonomies as $taxonomy){                
-                if($wp_query->tax_query->queries[0]['taxonomy'] == $taxonomy['name']){
-                    if(intval($taxonomy['posts_per_page']) != 0){                        
+        if (!is_admin()) {
+            foreach ($this->_fcpt_taxonomies as $taxonomy) {
+                if ($wp_query->tax_query->queries[0]['taxonomy'] == $taxonomy['name']) {
+                    if (intval($taxonomy['posts_per_page']) != 0) {
                         $wp_query->set('posts_per_page', $taxonomy['posts_per_page']);
                     }
                 }
@@ -129,11 +141,24 @@ class customPostType {
         $this->_fcpt_post_types = $post_types;
         if (is_array($post_types)) {
             foreach ($post_types as $post_type) {
+                $labels = array(
+                    'name' => __($post_type['label']),
+                    'singular_name' => __($post_type['singular label']),
+                    'menu_name' => __($post_type['label'])
+                );
+                foreach ($this->_labels as $key => $label) {
+                    if ($post_type['labels'][$key] != '') {
+                        $labels[$key] = $post_type['labels'][$key];
+                    } else {
+                        $labels[$key] = sprintf($label[1], __($post_type[$label[0]]));
+                    }
+                }
                 if ($post_type['status'] == 'active') {
                     register_post_type($post_type['name'], array(
-                        'label' => $post_type['label'],
+                        'label' => __($post_type['label']),
+                        'labels' => $labels,
                         'public' => $this->to_boolean($post_type['public']),
-                        'singular_label' => $post_type['singular_label'],
+                        'singular_label' => __($post_type['singular_label']),
                         'show_ui' => $this->to_boolean($post_type['show_ui']),
                         'capability_type' => $post_type['capability_type'],
                         'hierarchical' => $this->to_boolean($post_type['hierarchical']),
@@ -238,9 +263,9 @@ class customPostType {
                             </th>
                             <td>
                                 <input <?php echo $multilanguage; ?> type="text" name="term_meta[<?php echo $custom_field['name']; ?>]" size="40" value="<?php echo $value; ?>"><br/>
-<?php if ($custom_field['description'] != ''): ?><span class="description"><?php _e($custom_field['description']); ?></span><?php endif; ?>
-                                </td>
-                            </tr>
+        <?php if ($custom_field['description'] != ''): ?><span class="description"><?php _e($custom_field['description']); ?></span><?php endif; ?>
+                        </td>
+                    </tr>
 <?php
                         }
                     }
@@ -435,15 +460,15 @@ class customPostType {
                     $single = WP_CONTENT_DIR . str_replace(WP_CONTENT_URL, '', get_bloginfo('template_directory')) . '/single-' . $custom_post_type['name'] . '.php';
                     $archive = WP_CONTENT_DIR . str_replace(WP_CONTENT_URL, '', get_bloginfo('template_directory')) . '/archive-' . $custom_post_type['name'] . '.php';
                     if (!file_exists($single)) {
-                        if($fp = fopen($single, 'a+')){
-                        fwrite($fp, '<?php /* This is a autogenerated template by Flexible Custom Post Type  */ ?>');
-                        fclose($fp);
+                        if ($fp = fopen($single, 'a+')) {
+                            fwrite($fp, '<?php /* This is a autogenerated template by Flexible Custom Post Type  */ ?>');
+                            fclose($fp);
                         }
                     }
                     if (!file_exists($archive)) {
-                        if($fp = fopen($archive, 'a+')){
-                        fwrite($fp, '<?php /* This is a autogenerated template by Flexible Custom Post Type  */ ?>');
-                        fclose($fp);
+                        if ($fp = fopen($archive, 'a+')) {
+                            fwrite($fp, '<?php /* This is a autogenerated template by Flexible Custom Post Type  */ ?>');
+                            fclose($fp);
                         }
                     }
                 } else {
@@ -467,7 +492,7 @@ class customPostType {
                     $custom_taxonomy = $custom_taxonomies[$id];
                     $taxonomy_uri = WP_CONTENT_DIR . str_replace(WP_CONTENT_URL, '', get_bloginfo('template_directory')) . '/taxonomy-' . $custom_taxonomy['name'] . '.php';
                     if (!file_exists($taxonomy_uri)) {
-                        if($fp = fopen($taxonomy_uri, 'a+')){
+                        if ($fp = fopen($taxonomy_uri, 'a+')) {
                             fwrite($fp, '<?php /* This is a autogenerated template by Flexible Custom Post Type  */ ?>');
                             fclose($fp);
                         }

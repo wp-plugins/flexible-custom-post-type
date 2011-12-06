@@ -30,7 +30,7 @@
             <?php if (count($custom_post_types) > 0): ?>
             <?php foreach ($custom_post_types as $custom_post_type): ?>
                     <tr class="<?php echo $custom_post_type['status']; ?>">
-                        <td class="plugin-title"><strong><?php echo $custom_post_type['label']; ?> (<?php echo $custom_post_type['name']; ?>)</strong><a title="" href="?page=fcpt-edit-post&id=<?php echo $custom_post_type['id']; ?>"><?php _e('Edit', 'fcpt'); ?></a> | <a title="" class="delete" href="?page=fcpt&element=post&id=<?php echo $custom_post_type['id']; ?>"><?php _e('Delete', 'fcpt'); ?></a></td>
+                        <td class="plugin-title"><strong><?php _e($custom_post_type['label']); ?> (<?php echo $custom_post_type['name']; ?>)</strong><a title="" href="?page=fcpt-edit-post&id=<?php echo $custom_post_type['id']; ?>"><?php _e('Edit', 'fcpt'); ?></a> | <a title="" class="delete" href="?page=fcpt&element=post&id=<?php echo $custom_post_type['id']; ?>"><?php _e('Delete', 'fcpt'); ?></a></td>
                         <td class="desc">
                             <p><?php echo $custom_post_type['description']; ?></p>
                         </td>

@@ -88,9 +88,9 @@
                                         <input type="hidden" name="id" value="<?php echo isset($custom_post_type['id']) ? $custom_post_type['id'] : ''; ?>" />
                                         <p>The name of the post-type cannot be changed. The name may show up in your URLs, e.g. ?movie=star-wars. This will also make a new theme file available, starting with prefix named "single-", e.g. single-movie.php.</p>
                                         <table class="form-table">
-                                            <tr <?php if (isset($custom_post_type['id'])): ?>style="display:none;"<?php endif; ?> valign="top"><th scope="row"><?php _e('Name', 'fcpt') ?></th><td><input autocomplete="off" type="text" name="name" tabindex="1" value="<?php echo isset($custom_post_type['name']) ? esc_attr($custom_post_type['name']) : ''; ?>" />  (e.g. movie)</td></tr>
-                                            <tr valign="top"><th scope="row"><?php _e('Label', 'fcpt') ?></th><td><input autocomplete="off" type="text" name="label" tabindex="2" value="<?php echo isset($custom_post_type['label']) ? esc_attr($custom_post_type['label']) : ''; ?>" /> (e.g. Movies)</td></tr>
-                                            <tr valign="top"><th scope="row"><?php _e('Singular label', 'fcpt') ?></th><td><input autocomplete="off" type="text" name="singular_label" tabindex="3" value="<?php echo isset($custom_post_type['singular_label']) ? esc_attr($custom_post_type['singular_label']) : ''; ?>" /> (e.g. Movie)</td></tr>
+                                            <tr <?php if (isset($custom_post_type['id'])): ?>style="display:none;"<?php endif; ?> valign="top"><th scope="row"><?php _e('Name', 'fcpt') ?></th><td><input autocomplete="off" type="text" name="name" tabindex="1" value="<?php echo isset($custom_post_type['name']) ? esc_attr($custom_post_type['name']) : ''; ?>" />  (e.g. movie, <?php _e('preferably in English'); ?></td></tr>
+                                            <tr valign="top"><th scope="row"><?php _e('Label', 'fcpt') ?></th><td><input autocomplete="off" type="text" name="label" tabindex="2" value="<?php echo isset($custom_post_type['label']) ? esc_attr($custom_post_type['label']) : ''; ?>" class="multilanguage-input" /> (e.g. Movies)</td></tr>
+                                            <tr valign="top"><th scope="row"><?php _e('Singular label', 'fcpt') ?></th><td><input autocomplete="off" type="text" name="singular_label" tabindex="3" value="<?php echo isset($custom_post_type['singular_label']) ? esc_attr($custom_post_type['singular_label']) : ''; ?>" class="multilanguage-input" /> (e.g. Movie)</td></tr>
                                             <tr valign="top"><th scope="row"><?php _e('Description', 'fcpt') ?></th><td><textarea name="description" tabindex="4" rows="2" cols="35"><?php echo isset($custom_post_type['description']) ? esc_attr($custom_post_type['description']) : ''; ?></textarea></td></tr>
                                             <tr valign="top"><th scope="row"><?php _e('Icon', 'fcpt') ?></th><td><?php echo $this->custom_select(array('name' => 'menu_icon', 'style'=> 'width:240px', 'path' => WP_PLUGIN_URL . '/' . $this->_plugin_basename . '/icons'), $this->get_icons(), $custom_post_type['menu_icon'], false); ?> <span style="display:block; float:right;width:16px; height:16px; margin-top:5px; background-position:left top; background-repeat:no-repeat; background-image:url(<?php echo WP_PLUGIN_URL . '/' . $this->_plugin_basename . '/icons/' . (isset($custom_post_type['menu_icon']) ? $custom_post_type['menu_icon'] : 'default.png'); ?>)"></span></td></tr>
                                             <tr valign="top"><th scope="row"><?php _e('Status', 'fcpt') ?></th><td><?php echo $this->custom_select('status', array('active' => 'Active', 'inactive' => 'Inactive'), $custom_post_type['status'], false); ?></td></tr>
@@ -154,6 +154,13 @@
                                             ?>
                                             </div>
                                             </td></tr>
+                                        </table>
+                                        <br/>
+                                        <strong><?php _e('Labels','fcpt'); ?></strong>
+                                        <table class="form-table">
+                                            <?php foreach($this->_labels as $key => $label): ?>
+                                            <tr valign="top"><th scope="row"><?php echo $key; ?></th><td><input autocomplete="off" type="text" name="labels[<?php echo $key; ?>]" value="<?php echo $custom_post_type['labels'][$key] || ''; ?>" class="multilanguage-input" /> (e.g. "<?php printf($label[1], __($custom_post_type[$label[0]])); ?>")</td></tr>
+                                            <?php endforeach; ?>
                                         </table>
                             <p class="submit"><input type="submit" class="button-primary" tabindex="21" value="<?php _e('Save changes', 'fcpt') ?>" /></p>
                         </div>

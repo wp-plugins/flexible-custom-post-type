@@ -42,3 +42,5 @@ For multilanguage support you should use:
 - 0.1.3 Fixed some bugs
 - 0.1.4 Added a set of icons (thanks to http://randyjensenonline.com/thoughts/wordpress-custom-post-type-fugue-icons/)
 - 0.1.5 Added custom fields to custom taxonomies
+- 0.1.7 Security risk fixed
+- 0.1.8 Added labels
