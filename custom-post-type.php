@@ -384,7 +384,7 @@ class customPostType {
             }
 
             public function admin_menu() {
-                add_menu_page('Custom Post Types', 'Post Types', 'administrator', 'fcpt', array($this, 'manage_elements'), WP_PLUGIN_URL . '/flexible-custom-post-type/icons/default.png');
+                add_menu_page('Custom Post Types', 'Post Types', 'administrator', 'fcpt', array($this, 'manage_elements'), WP_PLUGIN_URL . '/flexible-custom-post-type/icon.png');
                 add_submenu_page('fcpt', 'Add Post Types', __('Add post types', 'fcpt'), 'administrator', 'fcpt-edit-post', array($this, 'edit_post'));
                 add_submenu_page('fcpt', 'Add Taxonomies', __('Add taxonomies', 'fcpt'), 'administrator', 'fcpt-edit-taxonomy', array($this, 'edit_taxonomy'));
             }
