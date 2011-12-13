@@ -59,7 +59,7 @@ class customPostType {
 
     function custom_posts_per_page($wp_query) {
         if (!is_admin()) {
-            foreach ($this->_fcpt_taxonomies as $taxonomy) {
+            foreach ((array)$this->_fcpt_taxonomies as $taxonomy) {
                 if ($wp_query->tax_query->queries[0]['taxonomy'] == $taxonomy['name']) {
                     if (intval($taxonomy['posts_per_page']) != 0) {
                         $wp_query->set('posts_per_page', $taxonomy['posts_per_page']);
