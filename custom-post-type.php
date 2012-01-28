@@ -1,12 +1,11 @@
 <?php
 /*
   Plugin Name: Flexible Custom Post Type
-  Plugin URI: http://fractalia.pe
   Description: Admin panel for creating custom post types and custom taxonomies in WordPress
   Author: fractalia
   Version: 0.1.8
-  Author URI:http://fractalia.pe
-  Tags: 786, custom, plugin, post type, taxonomy
+  Author URI: http://fractalia.pe
+  Tags: fractalia, wordpress, custom, plugin, post type, taxonomy
  *
  * License: GNU General Public License, v2 (or newer)
  * License URI:  http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
