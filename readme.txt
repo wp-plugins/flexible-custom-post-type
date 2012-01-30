@@ -1,6 +1,6 @@
 === Plugin Name ===
-Contributors: 786.pe
-Tags: custom, post type, taxonomy, plugin, 786
+Contributors: fractalia
+Tags: custom, post type, taxonomy, plugin, fractalia, wordpress
 Requires at least: 3.0
 Tested up to: 3.2.1
 Stable tag: trunk
