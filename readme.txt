@@ -1,5 +1,5 @@
 === Plugin Name ===
-Contributors: fractalia
+Contributors: Fractalia - Applications lab
 Tags: custom, post type, taxonomy, plugin, fractalia, wordpress
 Requires at least: 3.0
 Tested up to: 3.2.1
