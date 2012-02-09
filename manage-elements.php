@@ -5,6 +5,7 @@
 <div class="wrap">
     <div class="icon32" id="icon-options-general"><br></div>
     <h2><?php _e('Custom Elements', 'fcpt'); ?></h2>
+    <iframe src="//www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2Fpages%2FFractalia-Applications-lab%2F256488141090473&amp;width=315&amp;height=62&amp;colorscheme=light&amp;show_faces=false&amp;border_color&amp;stream=false&amp;header=false&amp;appId=289529901105513" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:315px; height:62px;" allowTransparency="true"></iframe>
     <h3><?php _e('Custom Post Types', 'fcpt'); ?></h3>
     <div class="tablenav top">
         <div class="alignleft actions">
