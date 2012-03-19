@@ -3,7 +3,7 @@
   Plugin Name: Flexible Custom Post Type
   Description: Admin panel for creating custom post types and custom taxonomies in WordPress
   Author: Fractalia - Applications lab
-  Version: 0.1.9
+  Version: 0.1.10
   Author URI: http://fractalia.pe
   Tags: fractalia, wordpress, custom, plugin, post type, taxonomy
  *
