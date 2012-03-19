@@ -155,6 +155,7 @@
                                             ?>
                                             </div>
                                             </td></tr>
+                                            <tr valign="top"><th scope="row"><?php _e('Custom posts per page', 'fcpt') ?></th><td><input type="text" name="posts_per_page" value="<?php echo isset($custom_post_type['posts_per_page']) ? esc_attr($custom_post_type['posts_per_page']) : ''; ?>" /></td></tr>
                                         </table>
                                         <br/>
                                         <strong><?php _e('Labels','fcpt'); ?></strong>

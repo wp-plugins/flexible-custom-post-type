@@ -69,7 +69,7 @@
             <?php if (count($custom_taxonomies) > 0): ?>
             <?php foreach ($custom_taxonomies as $custom_taxonomy): ?>
                                 <tr class="<?php echo $custom_taxonomy['status']; ?>">
-                                    <td class="plugin-title"><strong><?php echo $custom_taxonomy['name']; ?></strong><a title="" href="?page=fcpt-edit-taxonomy&id=<?php echo $custom_taxonomy['id']; ?>"><?php _e('Edit', 'fcpt'); ?></a> | <a title="" href="?page=fcpt&element=taxonomy&id=<?php echo $custom_taxonomy['id']; ?>"><?php _e('Delete', 'fcpt'); ?></a></td>
+                                    <td class="plugin-title"><strong><?php _e($custom_taxonomy['label']); ?> (<?php echo $custom_taxonomy['name']; ?>)</strong><a title="" href="?page=fcpt-edit-taxonomy&id=<?php echo $custom_taxonomy['id']; ?>"><?php _e('Edit', 'fcpt'); ?></a> | <a title="" href="?page=fcpt&element=taxonomy&id=<?php echo $custom_taxonomy['id']; ?>"><?php _e('Delete', 'fcpt'); ?></a></td>
                                     <td class="desc">
                     <?php echo $custom_taxonomy['description']; ?>
                             </td>

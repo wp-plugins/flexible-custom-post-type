@@ -67,14 +67,37 @@ class customPostType {
         add_action('admin_head-nav-menus.php', array($this, 'admin_head_nav_menus'));
         add_action('init', array($this, 'init'));
         add_filter('pre_get_posts', array($this, 'custom_posts_per_page'));
+        add_filter('pre_get_posts', array($this, 'custom_posts_order'));
+    }
+
+    function custom_posts_order($query) {
+        foreach ($this->_fcpt_post_types as $post_type) {
+            if ($query->query_vars['post_type'] == $post_type['name']) {
+                if (!isset($query->query_vars['orderby'])) {
+                    $query->set('orderby', 'title');
+                    $query->set('order', 'ASC');
+                }
+            }
+        }
+        return $query;
     }
 
     function custom_posts_per_page($wp_query) {
         if (!is_admin()) {
+            foreach ((array) $this->_fcpt_post_types as $post_type) {
+                if ($wp_query->query_vars['post_type'] == $post_type['name']) {
+                    if (intval($post_type['posts_per_page']) != 0) {
+                        $wp_query->set('posts_per_page', $post_type['posts_per_page']);
+                    }
+                }
+            }
+
             foreach ((array) $this->_fcpt_taxonomies as $taxonomy) {
-                if ($wp_query->tax_query->queries[0]['taxonomy'] == $taxonomy['name']) {
-                    if (intval($taxonomy['posts_per_page']) != 0) {
-                        $wp_query->set('posts_per_page', $taxonomy['posts_per_page']);
+                if (isset($wp_query->tax_query->queries[0])) {
+                    if ($wp_query->tax_query->queries[0]['taxonomy'] == $taxonomy['name']) {
+                        if (intval($taxonomy['posts_per_page']) != 0) {
+                            $wp_query->set('posts_per_page', $taxonomy['posts_per_page']);
+                        }
                     }
                 }
             }
@@ -600,6 +623,9 @@ class customPostType {
         if (!is_array($post_type['taxonomies'])) {
             $post_type['taxonomies'] = array();
         }
+        if ($post_type['posts_per_page'] == '') {
+            $post_type['posts_per_page'] == 0;
+        }
         return $post_type;
     }
 
@@ -616,7 +642,7 @@ class customPostType {
         $post_type['custom_fields'] = $this->validate_custom_fields($post_type['custom_fields']);
         $post_type = $this->unset_values($post_type, array('_wpnonce', '_wp_http_referer'));
         $custom_post_types[$post_type['id']] = $post_type;
-        update_option('fcpt_custom_post_types', $custom_post_types);        
+        update_option('fcpt_custom_post_types', $custom_post_types);
         return $post_type['id'];
     }
 
@@ -626,6 +652,9 @@ class customPostType {
         }
         if (!is_array($taxonomy['post_types'])) {
             $taxonomy['post_types'] = array();
+        }
+        if ($taxonomy['posts_per_page'] == '') {
+            $taxonomy['posts_per_page'] == 0;
         }
         return $taxonomy;
     }
@@ -643,7 +672,7 @@ class customPostType {
         $taxonomy['custom_fields'] = $this->validate_custom_fields($taxonomy['custom_fields']);
         $taxonomy = $this->unset_values($taxonomy, array('_wpnonce', '_wp_http_referer'));
         $custom_taxonomies[$taxonomy['id']] = $taxonomy;
-        update_option('fcpt_custom_taxonomies', $custom_taxonomies);        
+        update_option('fcpt_custom_taxonomies', $custom_taxonomies);
         return $taxonomy['id'];
     }
 
