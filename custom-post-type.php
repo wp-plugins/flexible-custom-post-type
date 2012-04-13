@@ -5,7 +5,7 @@
   Author: Fractalia - Applications lab
   Version: 0.1.11
   Author URI: http://fractalia.pe
-  Tags: fractalia, wordpress, custom, plugin, post type, taxonomy
+  Tags: fractalia, wordpress, custom, plugin, post type, taxonomy, custom post type, custom taxonomy
  *
  * License: GNU General Public License, v2 (or newer)
  * License URI:  http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
