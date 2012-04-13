@@ -73,12 +73,13 @@ class customPostType {
     function custom_posts_order($query) {
         foreach ($this->_fcpt_post_types as $post_type) {
             if ($query->query_vars['post_type'] == $post_type['name']) {
-                if (!isset($query->query_vars['orderby'])) {
-                    $query->set('orderby', 'title');
+                if (!isset($query->query_vars['orderby']) || empty($query->query_vars['orderby'])) {
+                    $query->set('orderby', 'menu_order title');
                     $query->set('order', 'ASC');
                 }
             }
         }
+        
         return $query;
     }
 
@@ -711,7 +712,7 @@ class customPostType {
 
 }
 
-$fcpt = new customPostType();
+new customPostType();
 
 function get_custom_post_thumbnail($post_id) {
     $thumbnail_id = get_post_meta($post_id, '_thumbnail_id', true);
