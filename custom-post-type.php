@@ -71,7 +71,7 @@ class customPostType {
     }
 
     function custom_posts_order($query) {
-        foreach ($this->_fcpt_post_types as $post_type) {
+        foreach ((array) $this->_fcpt_post_types as $post_type) {
             if ($query->query_vars['post_type'] == $post_type['name']) {
                 if (!isset($query->query_vars['orderby']) || empty($query->query_vars['orderby'])) {
                     $query->set('orderby', 'menu_order title');
