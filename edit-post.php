@@ -156,6 +156,8 @@
                                             </div>
                                             </td></tr>
                                             <tr valign="top"><th scope="row"><?php _e('Custom posts per page', 'fcpt') ?></th><td><input type="text" name="posts_per_page" value="<?php echo isset($custom_post_type['posts_per_page']) ? esc_attr($custom_post_type['posts_per_page']) : ''; ?>" /></td></tr>
+                                            <?php $orderby = array('none' => __('None', 'fcpt'), 'ID' => __('ID', 'fcpt'), 'author' => __('Autor', 'fcpt'), 'title' => __('Title', 'fcpt'), 'date' => __('Date', 'fcpt'), 'modified' => __('Modified', 'fcpt'), 'parent' => __('Parent', 'fcpt'), 'rand' => __('Random', 'fcpt'), 'comment_count' => __('Comment', 'fcpt'), 'menu_order' => __('Order', 'fcpt')); ?>
+                                            <tr valign="top"><th scope="row"><?php _e('Order by', 'fcpt') ?></th><td><?php echo $this->custom_select('orderby', $orderby, $custom_post_type['orderby'] || 'menu_order', false); ?> <?php echo $this->custom_select('order', array('ASC' => __('Ascending', 'fcpt'), 'DESC' => __('Descending', 'fcpt')), $custom_post_type['order'] || 'ASC', false); ?></td></tr>
                                         </table>
                                         <br/>
                                         <strong><?php _e('Labels','fcpt'); ?></strong>

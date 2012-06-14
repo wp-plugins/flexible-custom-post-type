@@ -3,7 +3,7 @@
   Plugin Name: Flexible Custom Post Type
   Description: Admin panel for creating custom post types and custom taxonomies in WordPress
   Author: Fractalia - Applications lab
-  Version: 0.1.11
+  Version: 0.1.13
   Author URI: http://fractalia.pe
   Tags: fractalia, wordpress, custom, plugin, post type, taxonomy, custom post type, custom taxonomy
  *
@@ -24,7 +24,7 @@
 
 class customPostType {
 
-    protected $_version = '0.1.11';
+    protected $_version = '0.1.13';
     protected $_message = false;
     protected $_plugin_basename;
     protected $_fcpt_post_types = array();
@@ -74,17 +74,30 @@ class customPostType {
         foreach ((array) $this->_fcpt_post_types as $post_type) {
             if ($query->query_vars['post_type'] == $post_type['name']) {
                 if (!isset($query->query_vars['orderby']) || empty($query->query_vars['orderby'])) {
-                    $query->set('orderby', 'menu_order title');
-                    $query->set('order', 'ASC');
+                    $query->set('orderby', $post_type['orderby']);
+                    $query->set('order', $post_type['order']);
                 }
             }
         }
         
+        
+         foreach ((array) $this->_fcpt_taxonomies as $taxonomy) {             
+                if (isset($query->tax_query->queries[0])) {
+                    if ($query->tax_query->queries[0]['taxonomy'] == $taxonomy['name']) {
+                        if (intval($taxonomy['posts_per_page']) != 0) {
+                            $query->set('orderby', $taxonomy['orderby']);
+                    $query->set('order', $taxonomy['order']);
+                        }
+                    }
+                }
+            }
+        /*print_r($query); */
+
         return $query;
     }
 
     function custom_posts_per_page($wp_query) {
-        if (!is_admin()) {
+        if (!is_admin() && $wp_query->is_main_query()) {
             foreach ((array) $this->_fcpt_post_types as $post_type) {
                 if ($wp_query->query_vars['post_type'] == $post_type['name']) {
                     if (intval($post_type['posts_per_page']) != 0) {
@@ -722,4 +735,17 @@ function get_custom_post_thumbnail($post_id) {
 function get_taxonomy_meta($taxonomy_id, $key, $single = false) {
     return get_metadata('taxonomy', $taxonomy_id, $key, $single);
 }
+
+function update_taxonomy_meta($taxonomy_id, $meta_key, $meta_value, $prev_value = '') {
+    return update_metadata('taxonomy', $taxonomy_id, $meta_key, $meta_value, $prev_value);
+}
+
+function add_taxonomy_meta($taxonomy_id, $meta_key, $meta_value, $unique = false) {
+    return add_metadata('taxonomy', $taxonomy_id, $meta_key, $meta_value, $unique);
+}
+
+function delete_taxonomy_meta($taxonomy_id, $meta_key, $meta_value = '') {
+    return delete_metadata('taxonomy', $taxonomy_id, $meta_key, $meta_value);
+}
+
 ?>
