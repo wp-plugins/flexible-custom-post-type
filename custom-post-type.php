@@ -395,7 +395,7 @@ class customPostType {
             if ($fcpt_post_type['name'] == $post->post_type) {
                 if (is_array($fcpt_post_type['custom_fields'])) {
                     foreach ($fcpt_post_type['custom_fields'] as $input) {
-                        if ($_POST[$input['name']] != '') {
+                        if (isset($_POST[$input['name']])) {
                             update_post_meta($post_id, $input['name'], $_POST[$input['name']]);
                         }
                     }
